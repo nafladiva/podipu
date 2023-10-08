@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class TStyles {
   static TextStyle h1({Color? color}) {
     return GoogleFonts.poppins(
-      fontSize: 24,
+      fontSize: 28,
       fontWeight: FontWeight.bold,
       color: color,
     );
@@ -12,7 +12,7 @@ class TStyles {
 
   static TextStyle h2({Color? color}) {
     return GoogleFonts.poppins(
-      fontSize: 18,
+      fontSize: 24,
       fontWeight: FontWeight.bold,
       color: color,
     );

@@ -15,6 +15,7 @@ dependencies:
   equatable: ^2.0.5
   google_fonts: ^5.1.0
   get_it: ^7.6.4
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
