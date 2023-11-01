@@ -13,15 +13,13 @@ class PlayerBox extends StatelessWidget {
   const PlayerBox({
     super.key,
     required this.podcast,
-    required this.isPlaying,
   });
 
   final Podcast podcast;
-  final bool isPlaying;
 
   @override
   Widget build(BuildContext context) {
-    final playerCubit = BlocProvider.of<PlayerCubit>(context);
+    final playerCubit = context.read<PlayerCubit>();
     final player = locator<au.AudioPlayer>();
 
     return InkWell(
@@ -70,6 +68,7 @@ class PlayerBox extends StatelessWidget {
             ),
             const SizedBox(width: 12.0),
             BlocBuilder<PlayerCubit, PlayerState>(
+              bloc: playerCubit,
               builder: (context, state) {
                 return IconButton(
                   onPressed: () => state.isPlaying

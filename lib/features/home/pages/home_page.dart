@@ -24,7 +24,6 @@ class HomePage extends StatelessWidget {
                 ? PlayerBox(
                     //TODO: apply null safety
                     podcast: state.podcast!,
-                    isPlaying: state.isPlaying,
                   )
                 : null,
             body: SafeArea(
@@ -61,6 +60,7 @@ class HomePage extends StatelessWidget {
                     RecentlyPlayedView(
                       podcastList: DummyData.datas.reversed.toList(),
                     ),
+                    const SizedBox(height: 60),
                   ],
                 ),
               ),

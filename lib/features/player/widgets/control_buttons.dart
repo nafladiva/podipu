@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:podipu/features/player/cubits/player/player_cubit.dart'
+    as cubit;
 
 import '../common/player_common.dart';
 
@@ -13,6 +16,8 @@ class ControlButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final playerCubit = context.read<cubit.PlayerCubit>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -58,13 +63,13 @@ class ControlButtons extends StatelessWidget {
                 return IconButton(
                   icon: const Icon(Icons.play_arrow),
                   iconSize: 64.0,
-                  onPressed: player.play,
+                  onPressed: () => playerCubit.playAudio(player),
                 );
               } else if (processingState != ProcessingState.completed) {
                 return IconButton(
                   icon: const Icon(Icons.pause),
                   iconSize: 64.0,
-                  onPressed: player.pause,
+                  onPressed: () => playerCubit.pauseAudio(player),
                 );
               } else {
                 return IconButton(
