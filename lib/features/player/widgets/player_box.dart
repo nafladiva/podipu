@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart' as au;
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/features/player/cubits/player/player_cubit.dart';
+import 'package:podipu/injection.dart';
 import 'package:podipu/shared/models/podcast.dart';
 
 import '../pages/player_page.dart';
@@ -17,10 +21,16 @@ class PlayerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final playerCubit = BlocProvider.of<PlayerCubit>(context);
+    final player = locator<au.AudioPlayer>();
+
     return InkWell(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => PlayerPage(podcast: podcast)),
+        MaterialPageRoute(
+          builder: (_) => PlayerPage(podcast: podcast),
+          fullscreenDialog: true,
+        ),
       ),
       child: Container(
         // margin: EdgeInsets.symmetric(
@@ -59,14 +69,18 @@ class PlayerBox extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12.0),
-            IconButton(
-              onPressed: () {
-                // isPlaying ? player.pause() : player.play();
+            BlocBuilder<PlayerCubit, PlayerState>(
+              builder: (context, state) {
+                return IconButton(
+                  onPressed: () => state.isPlaying
+                      ? playerCubit.pauseAudio(player)
+                      : playerCubit.playAudio(player),
+                  icon: Icon(
+                    state.isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: 30,
+                  ),
+                );
               },
-              icon: Icon(
-                isPlaying ? Icons.pause : Icons.play_arrow,
-                size: 30,
-              ),
             ),
           ],
         ),

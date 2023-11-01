@@ -19,7 +19,10 @@ class PodcastCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => PlayerPage(podcast: podcast)),
+          MaterialPageRoute(
+            builder: (_) => PlayerPage(podcast: podcast),
+            fullscreenDialog: true,
+          ),
         ),
         child: Column(
           children: [

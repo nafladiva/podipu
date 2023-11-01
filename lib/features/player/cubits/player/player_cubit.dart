@@ -16,34 +16,36 @@ class PlayerCubit extends Cubit<PlayerState> {
     AudioPlayer player, {
     required Podcast podcast,
   }) async {
-    //TODO: add states
+    //TODO: add network states
 
-    if (player.playing) {
-      stopAudio(player);
-    }
+    if (state.podcast?.id != podcast.id) {
+      if (player.playing) {
+        stopAudio(player);
+      }
 
-    final session = await AudioSession.instance;
-    await session.configure(const AudioSessionConfiguration.speech());
+      final session = await AudioSession.instance;
+      await session.configure(const AudioSessionConfiguration.speech());
 
-    // Listen to errors during playback.
-    player.playbackEventStream.listen(
-      (event) {},
-      onError: (e, stackTrace) {
-        print('A stream error occurred: $e');
-      },
-    );
+      // Listen to errors during playback.
+      player.playbackEventStream.listen(
+        (event) {},
+        onError: (e, stackTrace) {
+          print('A stream error occurred: $e');
+        },
+      );
 
-    // Try to load audio from a source and catch any errors.
-    try {
-      // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
+      // Try to load audio from a source and catch any errors.
+      try {
+        // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
 
-      // await player.setAudioSource(AudioSource.uri(Uri.parse(audioUrl)));
-      await player.setAudioSource(AudioSource.asset(podcast.audioPath));
-      emit(state.copyWith(podcast: podcast));
+        // await player.setAudioSource(AudioSource.uri(Uri.parse(audioUrl)));
+        await player.setAudioSource(AudioSource.asset(podcast.audioPath));
+        emit(state.copyWith(podcast: podcast));
 
-      playAudio(player);
-    } catch (e) {
-      print('Error loading audio source: $e');
+        playAudio(player);
+      } catch (e) {
+        print('Error loading audio source: $e');
+      }
     }
   }
 
