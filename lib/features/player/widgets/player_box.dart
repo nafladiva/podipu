@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+import 'package:podipu/common/themes/colors.dart';
+import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/shared/models/podcast.dart';
+
+import '../pages/player_page.dart';
+
+class PlayerBox extends StatelessWidget {
+  const PlayerBox({
+    super.key,
+    required this.podcast,
+    required this.isPlaying,
+  });
+
+  final Podcast podcast;
+  final bool isPlaying;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => PlayerPage(podcast: podcast)),
+      ),
+      child: Container(
+        // margin: EdgeInsets.symmetric(
+        //   horizontal: SizeConst.kMarginX,
+        //   vertical: SizeConst.kMarginY,
+        // ),
+        padding: const EdgeInsets.all(24.0),
+        decoration: BoxDecoration(
+          color: MyColor.shadow,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.asset(
+                podcast.coverPath,
+                width: 50,
+              ),
+            ),
+            const SizedBox(width: 12.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    podcast.title,
+                    style: TStyles.sh1(),
+                  ),
+                  Text(
+                    podcast.artist,
+                    style: TStyles.p1(),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12.0),
+            IconButton(
+              onPressed: () {
+                // isPlaying ? player.pause() : player.play();
+              },
+              icon: Icon(
+                isPlaying ? Icons.pause : Icons.play_arrow,
+                size: 30,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

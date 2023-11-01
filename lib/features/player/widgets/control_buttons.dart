@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../common/player_common.dart';
+
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
 
@@ -20,16 +22,16 @@ class ControlButtons extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.volume_up),
             onPressed: () {
-              // showSliderDialog(
-              //   context: context,
-              //   title: "Adjust volume",
-              //   divisions: 10,
-              //   min: 0.0,
-              //   max: 1.0,
-              //   value: player.volume,
-              //   stream: player.volumeStream,
-              //   onChanged: player.setVolume,
-              // );
+              showSliderDialog(
+                context: context,
+                title: "Adjust volume",
+                divisions: 10,
+                min: 0.0,
+                max: 1.0,
+                value: player.volume,
+                stream: player.volumeStream,
+                onChanged: player.setVolume,
+              );
             },
           ),
 
@@ -43,6 +45,7 @@ class ControlButtons extends StatelessWidget {
               final playerState = snapshot.data;
               final processingState = playerState?.processingState;
               final playing = playerState?.playing;
+
               if (processingState == ProcessingState.loading ||
                   processingState == ProcessingState.buffering) {
                 return Container(
@@ -79,16 +82,16 @@ class ControlButtons extends StatelessWidget {
               icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
                   style: const TextStyle(fontWeight: FontWeight.bold)),
               onPressed: () {
-                // showSliderDialog(
-                //   context: context,
-                //   title: "Adjust speed",
-                //   divisions: 10,
-                //   min: 0.5,
-                //   max: 1.5,
-                //   value: player.speed,
-                //   stream: player.speedStream,
-                //   onChanged: player.setSpeed,
-                // );
+                showSliderDialog(
+                  context: context,
+                  title: "Adjust speed",
+                  divisions: 10,
+                  min: 0.5,
+                  max: 1.5,
+                  value: player.speed,
+                  stream: player.speedStream,
+                  onChanged: player.setSpeed,
+                );
               },
             ),
           ),
