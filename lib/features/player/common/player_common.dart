@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:podipu/common/themes/colors.dart';
 
 class SeekBar extends StatefulWidget {
   final Duration duration;
@@ -8,6 +9,7 @@ class SeekBar extends StatefulWidget {
   final Duration bufferedPosition;
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
+  final Color? color;
 
   const SeekBar({
     Key? key,
@@ -16,6 +18,7 @@ class SeekBar extends StatefulWidget {
     required this.bufferedPosition,
     this.onChanged,
     this.onChangeEnd,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -31,6 +34,8 @@ class SeekBarState extends State<SeekBar> {
     super.didChangeDependencies();
 
     _sliderThemeData = SliderTheme.of(context).copyWith(
+      thumbColor: MyColor.primary.shade200,
+      activeTrackColor: MyColor.primary.shade200,
       trackHeight: 2.0,
     );
   }
@@ -42,7 +47,7 @@ class SeekBarState extends State<SeekBar> {
         SliderTheme(
           data: _sliderThemeData.copyWith(
             thumbShape: HiddenThumbComponentShape(),
-            activeTrackColor: Colors.blue.shade100,
+            activeTrackColor: Colors.grey.shade300,
             inactiveTrackColor: Colors.grey.shade300,
           ),
           child: ExcludeSemantics(

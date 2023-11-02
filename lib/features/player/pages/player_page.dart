@@ -59,7 +59,7 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
-      bloc: BlocProvider.of<PodcastPlayerCubit>(context),
+      bloc: context.read<PodcastPlayerCubit>(),
       builder: (context, state) {
         return Scaffold(
           appBar: MyAppBar(
@@ -81,7 +81,10 @@ class _PlayerPageState extends State<PlayerPage> {
                   ),
                   child: Column(
                     children: [
-                      Image.asset(widget.podcast.coverPath),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(widget.podcast.coverPath),
+                      ),
                       const SizedBox(height: 28),
                       Text(
                         widget.podcast.title,
