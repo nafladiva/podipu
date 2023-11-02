@@ -20,7 +20,9 @@ dependencies:
   just_audio: ^0.9.35
   audio_session: ^0.1.16
   rxdart: ^0.27.7
-  flutter_seekbar: ^1.0.1
+  # flutter_seekbar: ^1.0.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

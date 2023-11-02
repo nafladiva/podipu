@@ -1,5 +1,5 @@
 import 'package:podipu/shared/consts/asset_path.dart';
-import 'package:podipu/shared/models/podcast.dart';
+import 'package:podipu/data/models/podcast.dart';
 
 class DummyData {
   static const List<Podcast> datas = [

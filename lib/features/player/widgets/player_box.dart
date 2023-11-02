@@ -5,7 +5,7 @@ import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
-import 'package:podipu/shared/models/podcast.dart';
+import 'package:podipu/data/models/podcast.dart';
 
 import '../pages/player_page.dart';
 

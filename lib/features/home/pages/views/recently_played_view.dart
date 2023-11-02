@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/shared/models/podcast.dart';
+import 'package:podipu/data/models/podcast.dart';
 
 import '../../widgets/podcast_card.dart';
 

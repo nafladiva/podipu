@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+import 'package:podipu/common/themes/colors.dart';
+import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/shared/consts/asset_path.dart';
+
+class EpisodeItem extends StatelessWidget {
+  const EpisodeItem({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.only(bottom: 12.0),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.04),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: Image.asset(
+                  AssetPath.starboyCoverImg,
+                  width: 55.0,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Britney Spears Book Club! Inside Her Powerful New Memoir',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TStyles.p1().copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      'Oct. 30, 2023',
+                      style: TStyles.p3(),
+                    ),
+                    // Row(
+                    //   children: [
+                    //     const Icon(
+                    //       Icons.play_arrow,
+                    //       color: MyColor.primary,
+                    //     ),
+                    //     const SizedBox(width: 6.0),
+                    //     Text(
+                    //       '00:58:56',
+                    //       style: TStyles.p1(color: MyColor.primary),
+                    //     )
+                    //   ],
+                    // ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          // const SizedBox(height: 12),
+          // Text(
+          //   'Britney Spears\' \'The Woman In Me\' is one of the most wrenching music memoirs ever. We take a deep look at its revelations, with Brittany Spanos and Rob Sheffield joining host Brian Hiatt Learn more...',
+          //   maxLines: 2,
+          //   overflow: TextOverflow.ellipsis,
+          //   style: TStyles.p2(),
+          // ),
+          const SizedBox(height: 6),
+          const Divider(),
+          const SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                '00:58:56',
+                style: TStyles.p1(),
+              ),
+              const SizedBox(width: 6.0),
+              Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: MyColor.primary,
+                  boxShadow: [
+                    BoxShadow(
+                      color: MyColor.shadow.withOpacity(0.2),
+                      offset: const Offset(2.0, 2.0),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.play_arrow,
+                  size: 28,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

@@ -1,8 +1,8 @@
 // import 'package:cached_network_image/cached_network_image.dart';s
 import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/features/player/player.dart';
-import 'package:podipu/shared/models/podcast.dart';
+import 'package:podipu/data/models/podcast.dart';
+import 'package:podipu/features/podcast_detail/podcast_detail.dart';
 
 class PodcastCard extends StatelessWidget {
   const PodcastCard({
@@ -19,11 +19,15 @@ class PodcastCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => PlayerPage(podcast: podcast),
-            fullscreenDialog: true,
-          ),
+          MaterialPageRoute(builder: (_) => const PodcastDetailPage()),
         ),
+        // onTap: () => Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (_) => PlayerPage(podcast: podcast),
+        //     fullscreenDialog: true,
+        //   ),
+        // ),
         child: Column(
           children: [
             ClipRRect(
