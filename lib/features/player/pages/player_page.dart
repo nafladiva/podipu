@@ -62,50 +62,61 @@ class _PlayerPageState extends State<PlayerPage> {
       bloc: BlocProvider.of<PlayerCubit>(context),
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: state.backgroundColor,
-          appBar: MyAppBar(title: widget.podcast.artist),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                vertical: SizeConst.kMarginY,
-                horizontal: SizeConst.kMarginX + 12.0,
+          appBar: MyAppBar(
+            title: widget.podcast.artist,
+            backgroundColor: state.backgroundColor,
+          ),
+          body: Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: state.backgroundColor,
               ),
-              child: Column(
-                children: [
-                  Image.asset(widget.podcast.coverPath),
-                  const SizedBox(height: 28),
-                  Text(
-                    widget.podcast.title,
-                    style: TStyles.sh1(),
+              SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: SizeConst.kMarginY,
+                    horizontal: SizeConst.kMarginX + 12.0,
                   ),
-                  ControlButtons(
-                    player: _player,
-                  ),
-                  // SeekBar(
-                  //   semanticsValue: '',
-                  //   progresseight: 10,
-                  //   indicatorRadius: 0.0,
-                  //   value: 14.0,
-                  //   progressColor: state.backgroundColor.withOpacity(0.5),
-                  //   backgroundColor: MyColor.text.withOpacity(0.7),
-                  // ),
-                  StreamBuilder<PositionData>(
-                    stream: _positionDataStream,
-                    builder: (context, snapshot) {
-                      final positionData = snapshot.data;
+                  child: Column(
+                    children: [
+                      Image.asset(widget.podcast.coverPath),
+                      const SizedBox(height: 28),
+                      Text(
+                        widget.podcast.title,
+                        style: TStyles.sh1(),
+                      ),
+                      ControlButtons(
+                        player: _player,
+                      ),
+                      // SeekBar(
+                      //   semanticsValue: '',
+                      //   progresseight: 10,
+                      //   indicatorRadius: 0.0,
+                      //   value: 14.0,
+                      //   progressColor: state.backgroundColor.withOpacity(0.5),
+                      //   backgroundColor: MyColor.text.withOpacity(0.7),
+                      // ),
+                      StreamBuilder<PositionData>(
+                        stream: _positionDataStream,
+                        builder: (context, snapshot) {
+                          final positionData = snapshot.data;
 
-                      return SeekBar(
-                        duration: positionData?.duration ?? Duration.zero,
-                        position: positionData?.position ?? Duration.zero,
-                        bufferedPosition:
-                            positionData?.bufferedPosition ?? Duration.zero,
-                        onChangeEnd: _player.seek,
-                      );
-                    },
+                          return SeekBar(
+                            duration: positionData?.duration ?? Duration.zero,
+                            position: positionData?.position ?? Duration.zero,
+                            bufferedPosition:
+                                positionData?.bufferedPosition ?? Duration.zero,
+                            onChangeEnd: _player.seek,
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         );
       },

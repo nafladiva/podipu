@@ -67,7 +67,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     final dominantColor = await ImageUtil.getDominantColor(imagePath);
 
     emit(state.copyWith(
-      backgroundColor: dominantColor,
+      backgroundColor: dominantColor.withOpacity(0.5),
     ));
   }
 }
