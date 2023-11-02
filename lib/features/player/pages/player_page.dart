@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_seekbar/flutter_seekbar.dart' show SeekBar;
-import 'package:just_audio/just_audio.dart' as au;
+import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/features/player/cubits/player/player_cubit.dart';
+import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/models/podcast.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
@@ -26,13 +26,13 @@ class PlayerPage extends StatefulWidget {
 }
 
 class _PlayerPageState extends State<PlayerPage> {
-  final _player = locator<au.AudioPlayer>();
+  final _player = locator<AudioPlayer>();
 
   @override
   void initState() {
     super.initState();
 
-    final playerCubit = BlocProvider.of<PlayerCubit>(context);
+    final playerCubit = BlocProvider.of<PodcastPlayerCubit>(context);
     playerCubit.setBackgroundColor(widget.podcast.coverPath);
     playerCubit.initAudio(_player, podcast: widget.podcast);
   }
@@ -58,8 +58,8 @@ class _PlayerPageState extends State<PlayerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlayerCubit, PlayerState>(
-      bloc: BlocProvider.of<PlayerCubit>(context),
+    return BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
+      bloc: BlocProvider.of<PodcastPlayerCubit>(context),
       builder: (context, state) {
         return Scaffold(
           appBar: MyAppBar(

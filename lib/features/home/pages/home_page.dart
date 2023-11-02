@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/features/player/cubits/player/player_cubit.dart';
+import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/player/widgets/player_box.dart';
 import 'package:podipu/shared/data/dummy_data.dart';
 
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
-      child: BlocBuilder<PlayerCubit, PlayerState>(
+      child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
         builder: (context, state) {
           return Scaffold(
             //TODO: check condition with if the audio is stored in state

@@ -7,10 +7,10 @@ import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/shared/models/podcast.dart';
 import 'package:podipu/shared/utils/image_util.dart';
 
-part 'player_state.dart';
+part 'podcast_player_state.dart';
 
-class PlayerCubit extends Cubit<PlayerState> {
-  PlayerCubit() : super(const PlayerState());
+class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
+  PodcastPlayerCubit() : super(const PodcastPlayerState());
 
   Future<void> initAudio(
     AudioPlayer player, {

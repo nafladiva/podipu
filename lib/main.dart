@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common/themes/themes.dart';
 
 import 'features/home/home.dart';
-import 'features/player/cubits/player/player_cubit.dart';
+import 'features/player/cubits/player/podcast_player_cubit.dart';
 import 'injection.dart' as di;
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => di.locator<PlayerCubit>(),
+      create: (_) => di.locator<PodcastPlayerCubit>(),
       child: MaterialApp(
         title: 'podipu',
         theme: Themes.init,

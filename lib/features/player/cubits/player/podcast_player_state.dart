@@ -1,11 +1,11 @@
-part of 'player_cubit.dart';
+part of 'podcast_player_cubit.dart';
 
-class PlayerState extends Equatable {
+class PodcastPlayerState extends Equatable {
   final Podcast? podcast;
   final Color backgroundColor;
   final bool isPlaying;
 
-  const PlayerState({
+  const PodcastPlayerState({
     this.podcast,
     this.backgroundColor = MyColor.background,
     this.isPlaying = false,
@@ -13,12 +13,12 @@ class PlayerState extends Equatable {
 
   bool get isAudioExist => podcast != null;
 
-  PlayerState copyWith({
+  PodcastPlayerState copyWith({
     Podcast? podcast,
     Color? backgroundColor,
     bool? isPlaying,
   }) {
-    return PlayerState(
+    return PodcastPlayerState(
       podcast: podcast ?? this.podcast,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       isPlaying: isPlaying ?? this.isPlaying,

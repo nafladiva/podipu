@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:just_audio/just_audio.dart' as au;
+import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/features/player/cubits/player/player_cubit.dart';
+import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/models/podcast.dart';
 
@@ -19,8 +19,8 @@ class PlayerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerCubit = context.read<PlayerCubit>();
-    final player = locator<au.AudioPlayer>();
+    final playerCubit = context.read<PodcastPlayerCubit>();
+    final player = locator<AudioPlayer>();
 
     return InkWell(
       onTap: () => Navigator.push(
@@ -67,7 +67,7 @@ class PlayerBox extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12.0),
-            BlocBuilder<PlayerCubit, PlayerState>(
+            BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
               bloc: playerCubit,
               builder: (context, state) {
                 return IconButton(

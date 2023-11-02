@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:podipu/features/player/cubits/player/player_cubit.dart'
-    as cubit;
+import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 
 import '../common/player_common.dart';
 
@@ -16,7 +15,7 @@ class ControlButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerCubit = context.read<cubit.PlayerCubit>();
+    final playerCubit = context.read<PodcastPlayerCubit>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
