@@ -1,12 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/shared/consts/asset_path.dart';
+import 'package:podipu/data/models/episode_mdl.dart';
+// import 'package:podipu/shared/consts/asset_path.dart';
 
 class EpisodeItem extends StatelessWidget {
   const EpisodeItem({
     super.key,
+    required this.episode,
   });
+
+  final EpisodeMdl episode;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +26,20 @@ class EpisodeItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
-                child: Image.asset(
-                  AssetPath.starboyCoverImg,
-                  width: 55.0,
+                child: CachedNetworkImage(
+                  imageUrl: episode.imageUrl,
+                  placeholder: (_, __) => const CircularProgressIndicator(),
+                  errorWidget: (_, __, ___) => const Icon(Icons.error),
+                  width: 70.0,
                 ),
+                // child: Image.asset(
+                //   AssetPath.starboyCoverImg,
+                //   width: 55.0,
+                // ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
@@ -36,14 +47,14 @@ class EpisodeItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Britney Spears Book Club! Inside Her Powerful New Memoir',
+                      episode.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TStyles.p1().copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4.0),
                     Text(
-                      'Oct. 30, 2023',
+                      'Oct. 30, 2023', //TODO: change info
                       style: TStyles.p3(),
                     ),
                     // Row(

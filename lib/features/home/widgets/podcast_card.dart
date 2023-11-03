@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/data/models/podcast.dart';
 import 'package:podipu/features/podcast_detail/podcast_detail.dart';
+import 'package:podipu/shared/data/dummy_data.dart';
 
 class PodcastCard extends StatelessWidget {
   const PodcastCard({
@@ -19,7 +20,11 @@ class PodcastCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const PodcastDetailPage()),
+          MaterialPageRoute(
+            builder: (_) => const PodcastDetailPage(
+              podcast: DummyData.podcast,
+            ),
+          ),
         ),
         // onTap: () => Navigator.push(
         //   context,

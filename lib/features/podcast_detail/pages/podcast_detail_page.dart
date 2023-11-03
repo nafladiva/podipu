@@ -1,14 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/shared/consts/asset_path.dart';
+import 'package:podipu/data/models/podcast_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 
 import '../widgets/episode_item.dart';
 import '../widgets/info_badge.dart';
 
 class PodcastDetailPage extends StatelessWidget {
-  const PodcastDetailPage({super.key});
+  const PodcastDetailPage({
+    super.key,
+    required this.podcast,
+  });
+
+  final PodcastMdl podcast;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +35,17 @@ class PodcastDetailPage extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                        AssetPath.starboyCoverImg,
+                      child: CachedNetworkImage(
+                        imageUrl: podcast.imageUrl,
+                        placeholder: (_, __) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (_, __, ___) => const Icon(Icons.error),
                         width: 120.0,
                       ),
+                      // child: Image.asset(
+                      //   AssetPath.starboyCoverImg,
+                      //   width: 120.0,
+                      // ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -40,12 +53,12 @@ class PodcastDetailPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Rolling Stone | Cumulus Podcast Network',
+                            podcast.title,
                             style: TStyles.sh1(),
                           ),
                           const SizedBox(height: 6.0),
                           Text(
-                            'rollingstone.com',
+                            podcast.publisher,
                             style: TStyles.p2(),
                           ),
                         ],
@@ -55,33 +68,33 @@ class PodcastDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24.0),
                 Text(
-                  'ABOUT THIS PODCAST',
+                  '🎯 ABOUT THIS PODCAST',
                   style: TStyles.sh1(),
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  'Inside the biggest stories in music, hosted by Rolling Stone senior writer Brian Hiatt. Featuring interviews with top artists, expert insight on new releases and breaking news from the Rolling Stone staff, and much more.',
+                  podcast.description,
                   style: TStyles.p2(),
                 ),
                 const SizedBox(height: 12),
-                const Wrap(
+                Wrap(
                   spacing: 8.0,
                   runSpacing: 8.0,
                   children: [
                     InfoBadge(
-                      text: 'English',
+                      text: podcast.language,
                       icon: Icons.language,
                     ),
                     InfoBadge(
-                      text: 'United States',
+                      text: podcast.country,
                       icon: Icons.location_on,
                     ),
                     InfoBadge(
-                      text: 'Weekly',
+                      text: 'Daily',
                       icon: Icons.update,
                     ),
                     InfoBadge(
-                      text: 'Episodic',
+                      text: podcast.type,
                       icon: Icons.info,
                     ),
                   ],
@@ -90,20 +103,25 @@ class PodcastDetailPage extends StatelessWidget {
                 const Divider(),
                 const SizedBox(height: 12.0),
                 Text(
-                  '🎉 LATEST EPISODE',
+                  '🔥 LATEST EPISODE',
                   style: TStyles.sh1(),
                 ),
                 const SizedBox(height: 12.0),
-                const EpisodeItem(),
+                EpisodeItem(
+                  episode: podcast.episodes.first,
+                ),
                 const SizedBox(height: 12.0),
                 Text(
                   'PREVIOUS EPISODES',
                   style: TStyles.sh1(),
                 ),
                 const SizedBox(height: 12.0),
-                const EpisodeItem(),
-                const EpisodeItem(),
-                const EpisodeItem(),
+                ...podcast.episodes.map(
+                  (episode) => EpisodeItem(episode: episode),
+                ),
+                // const EpisodeItem(),
+                // const EpisodeItem(),
+                // const EpisodeItem(),
               ],
             ),
           ),
