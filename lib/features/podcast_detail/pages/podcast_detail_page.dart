@@ -4,6 +4,7 @@ import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/data/models/podcast_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
+import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 
 import '../widgets/episode_item.dart';
 import '../widgets/info_badge.dart';
@@ -37,8 +38,10 @@ class PodcastDetailPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
                         imageUrl: podcast.imageUrl,
-                        placeholder: (_, __) =>
-                            const CircularProgressIndicator(),
+                        placeholder: (_, __) => const MyShimmerLoader(
+                          width: 120.0,
+                          height: 120.0,
+                        ),
                         errorWidget: (_, __, ___) => const Icon(Icons.error),
                         width: 120.0,
                       ),
@@ -112,13 +115,13 @@ class PodcastDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12.0),
                 Text(
-                  'PREVIOUS EPISODES',
+                  '📒 PREVIOUS EPISODES',
                   style: TStyles.sh1(),
                 ),
                 const SizedBox(height: 12.0),
-                ...podcast.episodes.map(
-                  (episode) => EpisodeItem(episode: episode),
-                ),
+                ...podcast.episodes.skip(1).map(
+                      (episode) => EpisodeItem(episode: episode),
+                    ),
                 // const EpisodeItem(),
                 // const EpisodeItem(),
                 // const EpisodeItem(),

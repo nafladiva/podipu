@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/data/models/episode_mdl.dart';
+import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 // import 'package:podipu/shared/consts/asset_path.dart';
 
 class EpisodeItem extends StatelessWidget {
@@ -30,16 +31,19 @@ class EpisodeItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
-                child: CachedNetworkImage(
-                  imageUrl: episode.imageUrl,
-                  placeholder: (_, __) => const CircularProgressIndicator(),
-                  errorWidget: (_, __, ___) => const Icon(Icons.error),
-                  width: 70.0,
+                child: Container(
+                  width: 60.0,
+                  height: 60.0,
+                  color: MyColor.text.withOpacity(0.1),
+                  child: CachedNetworkImage(
+                    imageUrl: episode.imageUrl,
+                    placeholder: (_, __) => const MyShimmerLoader(
+                      width: 60.0,
+                      height: 60.0,
+                    ),
+                    errorWidget: (_, __, ___) => const Icon(Icons.error),
+                  ),
                 ),
-                // child: Image.asset(
-                //   AssetPath.starboyCoverImg,
-                //   width: 55.0,
-                // ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
