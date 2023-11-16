@@ -6,6 +6,7 @@ import 'package:podipu/features/home/home.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/player/widgets/player_box.dart';
 import 'package:podipu/injection.dart';
+import 'package:podipu/shared/consts/my_const.dart';
 
 import '../cubit/main_cubit.dart';
 
@@ -57,16 +58,19 @@ class _MainPageState extends State<MainPage> {
               PersistentBottomNavBarItem(
                 title: 'Home',
                 icon: const Icon(Icons.home_filled),
+                activeColorPrimary: MyColor.primary,
               ),
               PersistentBottomNavBarItem(
                 title: 'Saved',
                 icon: const Icon(Icons.bookmark),
+                activeColorPrimary: MyColor.primary,
               ),
             ],
           ),
           Padding(
             padding: EdgeInsets.only(
-              bottom: 56.0 + MediaQuery.of(context).padding.bottom,
+              bottom: MyConst.bottomNavHeight +
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
               builder: (context, state) {

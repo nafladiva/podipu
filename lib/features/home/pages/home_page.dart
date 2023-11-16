@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
-import 'package:podipu/features/player/widgets/player_box.dart';
 import 'package:podipu/shared/data/dummy_data.dart';
 
 import 'views/views.dart';

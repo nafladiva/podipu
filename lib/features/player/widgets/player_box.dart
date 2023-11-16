@@ -33,7 +33,7 @@ class PlayerBox extends StatelessWidget {
         withNavBar: false,
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        margin: const EdgeInsets.all(12),
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 18.0),
         decoration: BoxDecoration(
           color: MyColor.shadow,
