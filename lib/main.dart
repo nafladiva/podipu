@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common/themes/themes.dart';
 
-import 'features/home/home.dart';
+import 'features/main_page/cubit/main_cubit.dart';
+import 'features/main_page/pages/main_page.dart';
 import 'features/player/cubits/player/podcast_player_cubit.dart';
 import 'injection.dart' as di;
 
@@ -17,12 +18,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => di.locator<PodcastPlayerCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => di.locator<PodcastPlayerCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MainCubit>(),
+        ),
+      ],
       child: MaterialApp(
         title: 'podipu',
         theme: Themes.init,
-        home: const HomePage(),
+        home: const MainPage(),
       ),
     );
   }

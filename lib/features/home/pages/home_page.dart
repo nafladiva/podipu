@@ -19,13 +19,6 @@ class HomePage extends StatelessWidget {
       child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
         builder: (context, state) {
           return Scaffold(
-            //TODO: check condition with if the audio is stored in state
-            bottomSheet: state.isAudioExist
-                ? PlayerBox(
-                    //TODO: apply null safety
-                    podcast: state.podcast!,
-                  )
-                : null,
             body: SafeArea(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(

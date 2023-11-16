@@ -122,6 +122,7 @@ class PodcastDetailPage extends StatelessWidget {
                 ...podcast.episodes.skip(1).map(
                       (episode) => EpisodeItem(episode: episode),
                     ),
+                const SizedBox(height: 65.0),
                 // const EpisodeItem(),
                 // const EpisodeItem(),
                 // const EpisodeItem(),

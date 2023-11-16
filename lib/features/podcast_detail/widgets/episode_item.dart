@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/data/models/episode_mdl.dart';
+import 'package:podipu/features/player/player.dart';
+import 'package:podipu/shared/data/dummy_data.dart';
 import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 // import 'package:podipu/shared/consts/asset_path.dart';
 
@@ -97,21 +100,31 @@ class EpisodeItem extends StatelessWidget {
                 style: TStyles.p1(),
               ),
               const SizedBox(width: 6.0),
-              Container(
-                padding: const EdgeInsets.all(4.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: MyColor.primary,
-                  boxShadow: [
-                    BoxShadow(
-                      color: MyColor.shadow.withOpacity(0.2),
-                      offset: const Offset(2.0, 2.0),
-                    ),
-                  ],
+              InkWell(
+                onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
+                  context,
+                  screen: MaterialPageRoute(
+                    builder: (_) => PlayerPage(podcast: DummyData.datas.first),
+                    fullscreenDialog: true,
+                  ),
+                  withNavBar: false,
                 ),
-                child: const Icon(
-                  Icons.play_arrow,
-                  size: 28,
+                child: Container(
+                  padding: const EdgeInsets.all(4.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: MyColor.primary,
+                    boxShadow: [
+                      BoxShadow(
+                        color: MyColor.shadow.withOpacity(0.2),
+                        offset: const Offset(2.0, 2.0),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.play_arrow,
+                    size: 28,
+                  ),
                 ),
               )
             ],

@@ -1,5 +1,6 @@
 // import 'package:cached_network_image/cached_network_image.dart';s
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/data/models/podcast.dart';
 import 'package:podipu/features/podcast_detail/podcast_detail.dart';
@@ -18,21 +19,14 @@ class PodcastCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const PodcastDetailPage(
+        onTap: () {
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: const PodcastDetailPage(
               podcast: DummyData.podcast,
             ),
-          ),
-        ),
-        // onTap: () => Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => PlayerPage(podcast: podcast),
-        //     fullscreenDialog: true,
-        //   ),
-        // ),
+          );
+        },
         child: Column(
           children: [
             ClipRRect(

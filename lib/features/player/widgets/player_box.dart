@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
@@ -23,19 +24,17 @@ class PlayerBox extends StatelessWidget {
     final player = locator<AudioPlayer>();
 
     return InkWell(
-      onTap: () => Navigator.push(
+      onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
         context,
-        MaterialPageRoute(
+        screen: MaterialPageRoute(
           builder: (_) => PlayerPage(podcast: podcast),
           fullscreenDialog: true,
         ),
+        withNavBar: false,
       ),
       child: Container(
-        // margin: EdgeInsets.symmetric(
-        //   horizontal: SizeConst.kMarginX,
-        //   vertical: SizeConst.kMarginY,
-        // ),
-        padding: const EdgeInsets.all(24.0),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 18.0),
         decoration: BoxDecoration(
           color: MyColor.shadow,
           borderRadius: BorderRadius.circular(8.0),
@@ -46,7 +45,7 @@ class PlayerBox extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.0),
               child: Image.asset(
                 podcast.coverPath,
-                width: 50,
+                width: 40,
               ),
             ),
             const SizedBox(width: 12.0),
@@ -57,11 +56,15 @@ class PlayerBox extends StatelessWidget {
                 children: [
                   Text(
                     podcast.title,
-                    style: TStyles.sh1(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TStyles.sh2(),
                   ),
                   Text(
                     podcast.artist,
-                    style: TStyles.p1(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TStyles.p2(),
                   ),
                 ],
               ),
