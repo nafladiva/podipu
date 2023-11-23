@@ -113,7 +113,7 @@ class EpisodeItem extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: MyColor.primary,
+                    color: MyColor.dark,
                     boxShadow: [
                       BoxShadow(
                         color: MyColor.shadow.withOpacity(0.2),
@@ -124,6 +124,7 @@ class EpisodeItem extends StatelessWidget {
                   child: const Icon(
                     Icons.play_arrow,
                     size: 28,
+                    color: MyColor.primaryPink,
                   ),
                 ),
               )

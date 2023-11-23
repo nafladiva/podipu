@@ -36,7 +36,7 @@ class PlayerBox extends StatelessWidget {
         margin: const EdgeInsets.all(12),
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 18.0),
         decoration: BoxDecoration(
-          color: MyColor.shadow,
+          color: MyColor.dark,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Row(

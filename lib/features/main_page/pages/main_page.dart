@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           PersistentTabView(
             context,
             controller: controller,
-            backgroundColor: MyColor.shadow,
+            backgroundColor: MyColor.dark,
             screens: const [
               HomePage(),
               Scaffold(
@@ -58,12 +58,12 @@ class _MainPageState extends State<MainPage> {
               PersistentBottomNavBarItem(
                 title: 'Home',
                 icon: const Icon(Icons.home_filled),
-                activeColorPrimary: MyColor.primary,
+                activeColorPrimary: MyColor.primaryPink,
               ),
               PersistentBottomNavBarItem(
                 title: 'Saved',
                 icon: const Icon(Icons.bookmark),
-                activeColorPrimary: MyColor.primary,
+                activeColorPrimary: MyColor.primaryPink,
               ),
             ],
           ),
