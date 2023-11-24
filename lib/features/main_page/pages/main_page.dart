@@ -46,6 +46,7 @@ class _MainPageState extends State<MainPage> {
             context,
             controller: controller,
             backgroundColor: MyColor.dark,
+            resizeToAvoidBottomInset: true,
             screens: const [
               HomePage(),
               Scaffold(

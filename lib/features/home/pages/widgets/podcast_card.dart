@@ -1,8 +1,8 @@
-// import 'package:cached_network_image/cached_network_image.dart';s
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/data/models/podcast.dart';
+import 'package:podipu/data/models/podcast_mdl.dart';
 import 'package:podipu/features/podcast_detail/podcast_detail.dart';
 import 'package:podipu/shared/data/dummy_data.dart';
 
@@ -12,12 +12,12 @@ class PodcastCard extends StatelessWidget {
     required this.podcast,
   });
 
-  final Podcast podcast;
+  final PodcastMdl podcast;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.only(right: 12),
       child: InkWell(
         onTap: () {
           PersistentNavBarNavigator.pushNewScreen(
@@ -31,21 +31,22 @@ class PodcastCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              //TODO: change back to CachedNetworkImage, Image.asset only for testing
-              child: Image.asset(
-                podcast.coverPath,
+              child: CachedNetworkImage(
+                imageUrl: podcast.imageUrl,
+                placeholder: (_, __) => const CircularProgressIndicator(),
+                errorWidget: (_, __, ___) => const Icon(Icons.error),
                 width: 150.0,
               ),
-              // child: CachedNetworkImage(
-              //   imageUrl: "http://via.placeholder.com/150x150",
-              //   placeholder: (_, __) => const CircularProgressIndicator(),
-              //   errorWidget: (_, __, ___) => const Icon(Icons.error),
-              // ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              podcast.title,
-              style: TStyles.p1(),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 150.0,
+              child: Text(
+                podcast.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TStyles.p1(),
+              ),
             )
           ],
         ),

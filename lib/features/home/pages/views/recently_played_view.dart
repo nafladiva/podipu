@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/data/models/podcast.dart';
-
-import '../../widgets/podcast_card.dart';
 
 class RecentlyPlayedView extends StatelessWidget {
-  const RecentlyPlayedView({
-    super.key,
-    required this.podcastList,
-  });
-
-  final List<Podcast> podcastList;
+  const RecentlyPlayedView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +17,17 @@ class RecentlyPlayedView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              ...podcastList.map(
-                (podcast) => PodcastCard(podcast: podcast),
-              ),
-            ],
-          ),
-        ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   padding: const EdgeInsets.symmetric(horizontal: 16),
+        //   child: Row(
+        //     children: [
+        //       ...podcastList.map(
+        //         (podcast) => PodcastCard(podcast: podcast),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }

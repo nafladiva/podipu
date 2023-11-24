@@ -6,9 +6,11 @@ import 'features/main_page/cubit/main_cubit.dart';
 import 'features/main_page/pages/main_page.dart';
 import 'features/player/cubits/player/podcast_player_cubit.dart';
 import 'injection.dart' as di;
+import 'shared/data/local_storage/hive_local_storage.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HiveLocalStorage.init();
   di.init();
   runApp(const MyApp());
 }

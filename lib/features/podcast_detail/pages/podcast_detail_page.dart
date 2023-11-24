@@ -111,7 +111,8 @@ class PodcastDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12.0),
                 EpisodeItem(
-                  episode: podcast.episodes.first,
+                  // TODO: need to remove null check
+                  episode: podcast.episodes!.first,
                 ),
                 const SizedBox(height: 12.0),
                 Text(
@@ -119,7 +120,7 @@ class PodcastDetailPage extends StatelessWidget {
                   style: TStyles.sh1(),
                 ),
                 const SizedBox(height: 12.0),
-                ...podcast.episodes.skip(1).map(
+                ...podcast.episodes!.skip(1).map(
                       (episode) => EpisodeItem(episode: episode),
                     ),
                 const SizedBox(height: 65.0),

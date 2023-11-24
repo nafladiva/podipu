@@ -12,20 +12,34 @@ class PodcastMdl extends Equatable {
   final String country;
   final String type;
   final int updateFrequencyHours;
-  final List<EpisodeMdl> episodes;
+  final List<EpisodeMdl>? episodes;
 
   const PodcastMdl({
     required this.id,
     required this.imageUrl,
     required this.publisher,
     required this.title,
-    required this.description,
-    required this.language,
-    required this.country,
-    required this.type,
-    required this.updateFrequencyHours,
-    required this.episodes,
+    this.description = '',
+    this.language = '',
+    this.country = '',
+    this.type = '',
+    this.updateFrequencyHours = 0,
+    this.episodes,
   });
+
+  factory PodcastMdl.fromMap(Map<String, dynamic> json) {
+    return PodcastMdl(
+      id: json['id'],
+      imageUrl: json['image'],
+      publisher: json['publisher'],
+      title: json['title'],
+      description: json['description'] ?? '',
+      language: json['language'] ?? '',
+      country: json['country'] ?? '',
+      type: json['type'] ?? '',
+      updateFrequencyHours: json['update_frequency_hours'] ?? 0,
+    );
+  }
 
   @override
   List<Object?> get props => [
