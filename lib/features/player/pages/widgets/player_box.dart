@@ -8,7 +8,7 @@ import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/data/models/podcast.dart';
 
-import '../pages/player_page.dart';
+import '../player_page.dart';
 
 class PlayerBox extends StatelessWidget {
   const PlayerBox({

@@ -11,7 +11,7 @@ import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../common/player_common.dart';
-import '../widgets/control_buttons.dart';
+import 'widgets/control_buttons.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({

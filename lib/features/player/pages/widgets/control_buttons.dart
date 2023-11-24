@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 
-import '../common/player_common.dart';
+import '../../common/player_common.dart';
 
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;

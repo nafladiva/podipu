@@ -6,8 +6,8 @@ import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 
-import '../widgets/episode_item.dart';
-import '../widgets/info_badge.dart';
+import 'widgets/episode_item.dart';
+import 'widgets/info_badge.dart';
 
 class PodcastDetailPage extends StatelessWidget {
   const PodcastDetailPage({

@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/features/home/home.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
-import 'package:podipu/features/player/widgets/player_box.dart';
+import 'package:podipu/features/player/pages/widgets/player_box.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/consts/my_const.dart';
 
