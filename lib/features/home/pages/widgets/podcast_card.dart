@@ -4,7 +4,6 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/features/podcast_detail/podcast_detail.dart';
-import 'package:podipu/shared/data/dummy_data.dart';
 
 class PodcastCard extends StatelessWidget {
   const PodcastCard({
@@ -22,9 +21,7 @@ class PodcastCard extends StatelessWidget {
         onTap: () {
           PersistentNavBarNavigator.pushNewScreen(
             context,
-            screen: const PodcastDetailPage(
-              podcast: DummyData.podcast,
-            ),
+            screen: PodcastDetailPage(id: podcast.id),
           );
         },
         child: Column(

@@ -43,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       List<PodcastMdl>? podcastList;
 
-      // caching
+      // check cache
       final cache = await HiveLocalStorage.get(
         boxName: HiveKey.cacheBoxKey,
         key: HiveKey.bestPodcastCacheKey,
@@ -76,7 +76,7 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       EpisodeMdl? episode;
 
-      // caching
+      // check cache
       final cache = await HiveLocalStorage.get(
         boxName: HiveKey.cacheBoxKey,
         key: HiveKey.randomEpisodeCacheKey,

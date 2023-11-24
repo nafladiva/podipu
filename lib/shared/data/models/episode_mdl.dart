@@ -9,6 +9,7 @@ class EpisodeMdl extends Equatable {
   final String title;
   final String description;
   final int audioLengthSec;
+  final int pubDateMS;
   final PodcastMdl? podcast;
 
   const EpisodeMdl({
@@ -18,6 +19,7 @@ class EpisodeMdl extends Equatable {
     required this.title,
     required this.description,
     required this.audioLengthSec,
+    required this.pubDateMS,
     this.podcast,
   });
 
@@ -29,6 +31,7 @@ class EpisodeMdl extends Equatable {
       title: json['title'],
       description: json['description'],
       audioLengthSec: json['audio_length_sec'],
+      pubDateMS: json['pub_date_ms'],
       podcast: json['podcast'] != null
           ? PodcastMdl.fromMap(
               json['podcast'],
@@ -45,6 +48,7 @@ class EpisodeMdl extends Equatable {
         title,
         description,
         audioLengthSec,
+        pubDateMS,
         podcast,
       ];
 }

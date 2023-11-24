@@ -6,8 +6,9 @@ import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/features/player/player.dart';
 import 'package:podipu/shared/data/dummy_data.dart';
+import 'package:podipu/shared/utils/date_time_util.dart';
+import 'package:podipu/shared/utils/duration_util.dart';
 import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
-// import 'package:podipu/shared/consts/asset_path.dart';
 
 class EpisodeItem extends StatelessWidget {
   const EpisodeItem({
@@ -15,10 +16,14 @@ class EpisodeItem extends StatelessWidget {
     required this.episode,
   });
 
-  final EpisodeMdl episode;
+  final EpisodeMdl? episode;
 
   @override
   Widget build(BuildContext context) {
+    if (episode == null) {
+      return const SizedBox();
+    }
+
     return Container(
       padding: const EdgeInsets.all(12.0),
       margin: const EdgeInsets.only(bottom: 12.0),
@@ -30,7 +35,7 @@ class EpisodeItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
@@ -39,7 +44,7 @@ class EpisodeItem extends StatelessWidget {
                   height: 60.0,
                   color: MyColor.text.withOpacity(0.1),
                   child: CachedNetworkImage(
-                    imageUrl: episode.imageUrl,
+                    imageUrl: episode!.imageUrl,
                     placeholder: (_, __) => const MyShimmerLoader(
                       width: 60.0,
                       height: 60.0,
@@ -54,41 +59,21 @@ class EpisodeItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      episode.title,
+                      episode!.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TStyles.p1().copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4.0),
                     Text(
-                      'Oct. 30, 2023', //TODO: change info
+                      DateTimeUtil.millisecondsToDateTime(episode!.pubDateMS),
                       style: TStyles.p3(),
                     ),
-                    // Row(
-                    //   children: [
-                    //     const Icon(
-                    //       Icons.play_arrow,
-                    //       color: MyColor.primary,
-                    //     ),
-                    //     const SizedBox(width: 6.0),
-                    //     Text(
-                    //       '00:58:56',
-                    //       style: TStyles.p1(color: MyColor.primary),
-                    //     )
-                    //   ],
-                    // ),
                   ],
                 ),
               )
             ],
           ),
-          // const SizedBox(height: 12),
-          // Text(
-          //   'Britney Spears\' \'The Woman In Me\' is one of the most wrenching music memoirs ever. We take a deep look at its revelations, with Brittany Spanos and Rob Sheffield joining host Brian Hiatt Learn more...',
-          //   maxLines: 2,
-          //   overflow: TextOverflow.ellipsis,
-          //   style: TStyles.p2(),
-          // ),
           const SizedBox(height: 6),
           const Divider(),
           const SizedBox(height: 6),
@@ -96,7 +81,7 @@ class EpisodeItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                '00:58:56',
+                DurationUtil.formatSeconds(episode!.audioLengthSec),
                 style: TStyles.p1(),
               ),
               const SizedBox(width: 6.0),

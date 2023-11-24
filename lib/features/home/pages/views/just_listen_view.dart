@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/features/podcast_detail/pages/podcast_detail_page.dart';
-import 'package:podipu/shared/data/dummy_data.dart';
 
 import '../../cubit/home_cubit.dart';
 
@@ -36,12 +33,7 @@ class JustListenView extends StatelessWidget {
               const SizedBox(height: 12),
               InkWell(
                 onTap: () {
-                  PersistentNavBarNavigator.pushNewScreen(
-                    context,
-                    screen: const PodcastDetailPage(
-                      podcast: DummyData.podcast,
-                    ),
-                  );
+                  // TODO: open player
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

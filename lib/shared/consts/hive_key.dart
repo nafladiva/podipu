@@ -5,4 +5,5 @@ class HiveKey {
   static const podcastRecommendationCacheKey = 'podcastRecommendationCacheKey';
   static const episodeRecommendationCacheKey = 'episodeRecommendationCacheKey';
   static const randomEpisodeCacheKey = 'randomPodcastCacheKey';
+  static const podcastDetailCacheKey = 'podcastDetailCacheKey';
 }

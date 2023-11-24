@@ -38,6 +38,11 @@ class PodcastMdl extends Equatable {
       country: json['country'] ?? '',
       type: json['type'] ?? '',
       updateFrequencyHours: json['update_frequency_hours'] ?? 0,
+      episodes: json['episodes'] != null
+          ? List<EpisodeMdl>.from(
+              json['episodes'].map((x) => EpisodeMdl.fromMap(x)),
+            )
+          : null,
     );
   }
 
