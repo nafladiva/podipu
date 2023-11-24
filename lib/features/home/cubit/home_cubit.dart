@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:podipu/data/models/episode_mdl.dart';
-import 'package:podipu/data/models/podcast_mdl.dart';
+import 'package:podipu/shared/data/models/episode_mdl.dart';
+import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/features/home/repositories/home_repository.dart';
 import 'package:podipu/shared/consts/hive_key.dart';
 import 'package:podipu/shared/data/local_storage/hive_local_storage.dart';

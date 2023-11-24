@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/themes/colors.dart';
-import 'package:podipu/data/models/podcast.dart';
+import 'package:podipu/shared/data/models/podcast.dart';
 import 'package:podipu/shared/utils/image_util.dart';
 
 part 'podcast_player_state.dart';

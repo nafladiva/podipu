@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/data/models/episode_mdl.dart';
+import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/features/player/player.dart';
 import 'package:podipu/shared/data/dummy_data.dart';
 import 'package:podipu/shared/widgets/my_shimmer_loader.dart';

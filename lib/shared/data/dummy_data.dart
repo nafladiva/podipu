@@ -1,7 +1,7 @@
-import 'package:podipu/data/models/episode_mdl.dart';
-import 'package:podipu/data/models/podcast_mdl.dart';
+import 'package:podipu/shared/data/models/episode_mdl.dart';
+import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/shared/consts/asset_path.dart';
-import 'package:podipu/data/models/podcast.dart';
+import 'package:podipu/shared/data/models/podcast.dart';
 
 class DummyData {
   static const List<Podcast> datas = [

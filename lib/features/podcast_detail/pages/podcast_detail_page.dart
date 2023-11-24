@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
-import 'package:podipu/data/models/podcast_mdl.dart';
+import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 
