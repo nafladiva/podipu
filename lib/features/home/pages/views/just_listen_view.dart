@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/features/player/player.dart';
 
 import '../../cubit/home_cubit.dart';
 
@@ -32,9 +34,14 @@ class JustListenView extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               InkWell(
-                onTap: () {
-                  // TODO: open player
-                },
+                onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
+                  context,
+                  screen: MaterialPageRoute(
+                    builder: (_) => PlayerPage(episode: state.randomEpisode!),
+                    fullscreenDialog: true,
+                  ),
+                  withNavBar: false,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

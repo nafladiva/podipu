@@ -1,25 +1,25 @@
 part of 'podcast_player_cubit.dart';
 
 class PodcastPlayerState extends Equatable {
-  final Podcast? podcast;
+  final EpisodeMdl? episode;
   final Color backgroundColor;
   final bool isPlaying;
 
   const PodcastPlayerState({
-    this.podcast,
+    this.episode,
     this.backgroundColor = MyColor.background,
     this.isPlaying = false,
   });
 
-  bool get isAudioExist => podcast != null;
+  bool get isAudioExist => episode != null;
 
   PodcastPlayerState copyWith({
-    Podcast? podcast,
+    EpisodeMdl? episode,
     Color? backgroundColor,
     bool? isPlaying,
   }) {
     return PodcastPlayerState(
-      podcast: podcast ?? this.podcast,
+      episode: episode ?? this.episode,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       isPlaying: isPlaying ?? this.isPlaying,
     );
@@ -27,7 +27,7 @@ class PodcastPlayerState extends Equatable {
 
   @override
   List<Object?> get props => [
-        podcast,
+        episode,
         backgroundColor,
         isPlaying,
       ];

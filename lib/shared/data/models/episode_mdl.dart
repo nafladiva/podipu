@@ -40,6 +40,28 @@ class EpisodeMdl extends Equatable {
     );
   }
 
+  EpisodeMdl copyWith({
+    String? id,
+    String? audioUrl,
+    String? imageUrl,
+    String? title,
+    String? description,
+    int? audioLengthSec,
+    int? pubDateMS,
+    PodcastMdl? podcast,
+  }) {
+    return EpisodeMdl(
+      id: id ?? this.id,
+      audioUrl: audioUrl ?? this.audioUrl,
+      imageUrl: imageUrl ?? this.imageUrl,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      audioLengthSec: audioLengthSec ?? this.audioLengthSec,
+      pubDateMS: pubDateMS ?? this.pubDateMS,
+      podcast: podcast ?? this.podcast,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

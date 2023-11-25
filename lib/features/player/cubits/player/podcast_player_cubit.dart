@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/themes/colors.dart';
-import 'package:podipu/shared/data/models/podcast.dart';
+import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/utils/image_util.dart';
 
 part 'podcast_player_state.dart';
@@ -14,11 +14,11 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
 
   Future<void> initAudio(
     AudioPlayer player, {
-    required Podcast podcast,
+    required EpisodeMdl episode,
   }) async {
     //TODO: add network states
 
-    if (state.podcast?.id != podcast.id) {
+    if (state.episode?.id != episode.id) {
       if (player.playing) {
         stopAudio(player);
       }
@@ -39,8 +39,10 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
         // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
 
         // await player.setAudioSource(AudioSource.uri(Uri.parse(audioUrl)));
-        await player.setAudioSource(AudioSource.asset(podcast.audioPath));
-        emit(state.copyWith(podcast: podcast));
+        await player.setAudioSource(
+          AudioSource.uri(Uri.parse(episode.audioUrl)),
+        );
+        emit(state.copyWith(episode: episode));
 
         playAudio(player);
       } catch (e) {

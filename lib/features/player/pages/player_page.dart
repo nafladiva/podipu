@@ -1,12 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_seekbar/flutter_seekbar.dart' show SeekBar;
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
-import 'package:podipu/shared/data/models/podcast.dart';
+import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,10 +16,10 @@ import 'widgets/control_buttons.dart';
 class PlayerPage extends StatefulWidget {
   const PlayerPage({
     super.key,
-    required this.podcast,
+    required this.episode,
   });
 
-  final Podcast podcast;
+  final EpisodeMdl episode;
 
   @override
   State<PlayerPage> createState() => _PlayerPageState();
@@ -33,8 +33,8 @@ class _PlayerPageState extends State<PlayerPage> {
     super.initState();
 
     final playerCubit = BlocProvider.of<PodcastPlayerCubit>(context);
-    playerCubit.setBackgroundColor(widget.podcast.coverPath);
-    playerCubit.initAudio(_player, podcast: widget.podcast);
+    playerCubit.setBackgroundColor(widget.episode.imageUrl);
+    playerCubit.initAudio(_player, episode: widget.episode);
   }
 
   Stream<PositionData> get _positionDataStream =>
@@ -63,7 +63,7 @@ class _PlayerPageState extends State<PlayerPage> {
       builder: (context, state) {
         return Scaffold(
           appBar: MyAppBar(
-            title: widget.podcast.artist,
+            title: widget.episode.podcast?.publisher ?? '',
             backgroundColor: state.backgroundColor,
           ),
           body: Stack(
@@ -81,13 +81,20 @@ class _PlayerPageState extends State<PlayerPage> {
                   ),
                   child: Column(
                     children: [
+                      const SizedBox(height: 20),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(widget.podcast.coverPath),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.episode.imageUrl,
+                          placeholder: (_, __) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (_, __, ___) => const Icon(Icons.error),
+                          width: MediaQuery.of(context).size.width * 0.7,
+                        ),
                       ),
                       const SizedBox(height: 28),
                       Text(
-                        widget.podcast.title,
+                        widget.episode.title,
                         style: TStyles.sh1(),
                       ),
                       ControlButtons(

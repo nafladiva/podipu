@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -6,17 +7,17 @@ import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
-import 'package:podipu/shared/data/models/podcast.dart';
+import 'package:podipu/shared/data/models/episode_mdl.dart';
 
 import '../player_page.dart';
 
 class PlayerBox extends StatelessWidget {
   const PlayerBox({
     super.key,
-    required this.podcast,
+    required this.episode,
   });
 
-  final Podcast podcast;
+  final EpisodeMdl episode;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class PlayerBox extends StatelessWidget {
       onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
         context,
         screen: MaterialPageRoute(
-          builder: (_) => PlayerPage(podcast: podcast),
+          builder: (_) => PlayerPage(episode: episode),
           fullscreenDialog: true,
         ),
         withNavBar: false,
@@ -43,8 +44,10 @@ class PlayerBox extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4.0),
-              child: Image.asset(
-                podcast.coverPath,
+              child: CachedNetworkImage(
+                imageUrl: episode.imageUrl,
+                placeholder: (_, __) => const CircularProgressIndicator(),
+                errorWidget: (_, __, ___) => const Icon(Icons.error),
                 width: 40,
               ),
             ),
@@ -55,13 +58,13 @@ class PlayerBox extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    podcast.title,
+                    episode.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TStyles.sh2(),
                   ),
                   Text(
-                    podcast.artist,
+                    episode.podcast?.publisher ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TStyles.p2(),

@@ -140,7 +140,8 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
                       const SizedBox(height: 12.0),
                       EpisodeItem(
                         // TODO: need to remove null check
-                        episode: state.podcast?.episodes!.first,
+                        episode: state.podcast?.episodes!.first
+                            .copyWith(podcast: state.podcast),
                       ),
                       const SizedBox(height: 12.0),
                       Text(
@@ -149,7 +150,9 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
                       ),
                       const SizedBox(height: 12.0),
                       ...state.podcast!.episodes!.skip(1).map(
-                            (episode) => EpisodeItem(episode: episode),
+                            (episode) => EpisodeItem(
+                              episode: episode.copyWith(podcast: state.podcast),
+                            ),
                           ),
                       const SizedBox(height: 65.0),
                     ],

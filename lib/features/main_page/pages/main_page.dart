@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
               builder: (context, state) {
                 if (!state.isAudioExist) return const SizedBox();
 
-                return PlayerBox(podcast: state.podcast!);
+                return PlayerBox(episode: state.episode!);
               },
             ),
           ),
