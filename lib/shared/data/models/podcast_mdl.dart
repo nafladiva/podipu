@@ -46,6 +46,22 @@ class PodcastMdl extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'image': imageUrl,
+      'publisher': publisher,
+      'title': title,
+      'description': description,
+      'language': language,
+      'country': country,
+      'type': type,
+      'update_frequency_hours': updateFrequencyHours,
+      if (episodes != null)
+        'episodes': episodes?.map((x) => x.toMap()).toList(),
+    };
+  }
+
   @override
   List<Object?> get props => [
         id,

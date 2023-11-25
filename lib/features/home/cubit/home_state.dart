@@ -5,9 +5,11 @@ class HomeState extends Equatable {
   final ViewState podcastRecommendationLoadStatus;
   final ViewState episodeRecommendationLoadStatus;
   final ViewState randomEpisodeLoadStatus;
+  final ViewState recentPlayedLoadStatus;
   final List<PodcastMdl> bestPodcastList;
   final List<PodcastMdl> podcastRecommendationList;
   final List<EpisodeMdl> episodeRecommendationList;
+  final List<RecentPlayedMdl> recentPlayedList;
   final EpisodeMdl? randomEpisode;
   final PodcastMdl? selectedPodcast;
 
@@ -16,9 +18,11 @@ class HomeState extends Equatable {
     required this.podcastRecommendationLoadStatus,
     required this.episodeRecommendationLoadStatus,
     required this.randomEpisodeLoadStatus,
+    required this.recentPlayedLoadStatus,
     this.bestPodcastList = const [],
     this.podcastRecommendationList = const [],
     this.episodeRecommendationList = const [],
+    this.recentPlayedList = const [],
     this.randomEpisode,
     this.selectedPodcast,
   });
@@ -28,9 +32,11 @@ class HomeState extends Equatable {
     ViewState? podcastRecommendationLoadStatus,
     ViewState? episodeRecommendationLoadStatus,
     ViewState? randomEpisodeLoadStatus,
+    ViewState? recentPlayedLoadStatus,
     List<PodcastMdl>? bestPodcastList,
     List<PodcastMdl>? podcastRecommendationList,
     List<EpisodeMdl>? episodeRecommendationList,
+    List<RecentPlayedMdl>? recentPlayedList,
     EpisodeMdl? randomEpisode,
     PodcastMdl? selectedPodcast,
   }) {
@@ -43,11 +49,14 @@ class HomeState extends Equatable {
           this.episodeRecommendationLoadStatus,
       randomEpisodeLoadStatus:
           randomEpisodeLoadStatus ?? this.randomEpisodeLoadStatus,
+      recentPlayedLoadStatus:
+          recentPlayedLoadStatus ?? this.recentPlayedLoadStatus,
       bestPodcastList: bestPodcastList ?? this.bestPodcastList,
       podcastRecommendationList:
           podcastRecommendationList ?? this.podcastRecommendationList,
       episodeRecommendationList:
           episodeRecommendationList ?? this.episodeRecommendationList,
+      recentPlayedList: recentPlayedList ?? this.recentPlayedList,
       randomEpisode: randomEpisode ?? this.randomEpisode,
       selectedPodcast: selectedPodcast ?? this.selectedPodcast,
     );
@@ -59,9 +68,11 @@ class HomeState extends Equatable {
         podcastRecommendationLoadStatus,
         episodeRecommendationLoadStatus,
         randomEpisodeLoadStatus,
+        recentPlayedLoadStatus,
         bestPodcastList,
         podcastRecommendationList,
         episodeRecommendationList,
+        recentPlayedList,
         randomEpisode,
         selectedPodcast,
       ];

@@ -40,6 +40,19 @@ class EpisodeMdl extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'audio': audioUrl,
+      'image': imageUrl,
+      'title': title,
+      'description': description,
+      'audio_length_sec': audioLengthSec,
+      'pub_date_ms': pubDateMS,
+      if (podcast != null) 'podcast': podcast?.toMap(),
+    };
+  }
+
   EpisodeMdl copyWith({
     String? id,
     String? audioUrl,

@@ -12,6 +12,7 @@ class HiveLocalStorage {
   static Future<void> openBoxes() async {
     //open all boxes
     await Hive.openBox<String>(HiveKey.cacheBoxKey);
+    await Hive.openBox<String>(HiveKey.recentPlayedBoxKey);
   }
 
   static Future<dynamic> get({

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common/themes/themes.dart';
 
+import 'features/home/cubit/home_cubit.dart';
 import 'features/main_page/cubit/main_cubit.dart';
 import 'features/main_page/pages/main_page.dart';
 import 'features/player/cubits/player/podcast_player_cubit.dart';
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<MainCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<HomeCubit>()..onBuild(),
         ),
       ],
       child: MaterialApp(
