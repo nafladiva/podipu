@@ -22,10 +22,12 @@ class RecentPlayedCubit extends Cubit<RecentPlayedState> {
 
     try {
       final recentList = await repository.getRecentPlayed();
+      final sortedByDate = recentList
+        ..sort((a, b) => b.playedAt.compareTo(a.playedAt));
 
       emit(
         state.copyWith(
-          recentList: recentList,
+          recentList: sortedByDate,
           loadStatus: const ViewState.success(),
         ),
       );

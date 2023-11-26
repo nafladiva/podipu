@@ -5,6 +5,7 @@ import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/home/repositories/home_repository.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
+import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
 
 import '../cubit/home_cubit.dart';
 import 'views/just_listen_view.dart';
@@ -35,6 +36,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final recentPlayedCubit = context.read<RecentPlayedCubit>();
+
     return BlocProvider.value(
       value: homeCubit,
       child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -44,7 +47,10 @@ class _HomePageState extends State<HomePage> {
             return Scaffold(
               body: SafeArea(
                 child: RefreshIndicator(
-                  onRefresh: homeCubit.onBuild,
+                  onRefresh: () async {
+                    await homeCubit.onBuild();
+                    await recentPlayedCubit.getRecentPlayed();
+                  },
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
                       vertical: SizeConst.kMarginY,
