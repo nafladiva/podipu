@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
+import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
@@ -34,7 +35,15 @@ class _PlayerPageState extends State<PlayerPage> {
 
     final playerCubit = BlocProvider.of<PodcastPlayerCubit>(context);
     playerCubit.setBackgroundColor(widget.episode.imageUrl);
-    playerCubit.initAudio(_player, episode: widget.episode);
+    playerCubit.initAudio(
+      _player,
+      episode: widget.episode,
+      callback: () async {
+        await context
+            .read<RecentPlayedCubit>()
+            .setToRecentPlayed(episode: widget.episode);
+      },
+    );
   }
 
   Stream<PositionData> get _positionDataStream =>

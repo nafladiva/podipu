@@ -7,7 +7,6 @@ import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/features/home/repositories/home_repository.dart';
 import 'package:podipu/shared/consts/hive_key.dart';
 import 'package:podipu/shared/data/local_storage/hive_local_storage.dart';
-import 'package:podipu/shared/data/models/recent_played_mdl.dart';
 import 'package:podipu/shared/states/view_states.dart';
 
 part 'home_state.dart';
@@ -22,22 +21,18 @@ class HomeCubit extends Cubit<HomeState> {
             podcastRecommendationLoadStatus: ViewState.initial(),
             episodeRecommendationLoadStatus: ViewState.initial(),
             randomEpisodeLoadStatus: ViewState.initial(),
-            recentPlayedLoadStatus: ViewState.initial(),
           ),
         );
 
   Future<void> onBuild() async {
     // getBestPodcast(), emit to state
     await getBestPodcast();
-    await getRecentPlayed();
     await getRandomEpisode();
 
     // pick one random podcast (from bestPodcastList), then it will be id for getPodcastRecommendation
     // selected podcast will be emit to selectedPodcast state
 
     // getPodcastRecommendation()
-
-    // getRandomPodcast()
   }
 
   Future<void> getBestPodcast() async {
@@ -100,23 +95,6 @@ class HomeCubit extends Cubit<HomeState> {
       );
     } catch (e) {
       emit(state.copyWith(randomEpisodeLoadStatus: const ViewState.failed()));
-    }
-  }
-
-  Future<void> getRecentPlayed() async {
-    emit(state.copyWith(recentPlayedLoadStatus: const ViewState.loading()));
-
-    try {
-      final recentList = await repository.getRecentPlayed();
-
-      emit(
-        state.copyWith(
-          recentPlayedList: recentList,
-          recentPlayedLoadStatus: const ViewState.success(),
-        ),
-      );
-    } catch (e) {
-      emit(state.copyWith(recentPlayedLoadStatus: const ViewState.failed()));
     }
   }
 }

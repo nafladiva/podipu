@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
 
-import '../../cubit/home_cubit.dart';
 import '../widgets/recent_played_card.dart';
 
 class RecentlyPlayedView extends StatelessWidget {
@@ -10,15 +10,15 @@ class RecentlyPlayedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<RecentPlayedCubit, RecentPlayedState>(
       builder: (context, state) {
-        if (state.recentPlayedLoadStatus.isLoading) {
+        if (state.loadStatus.isLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state.recentPlayedList.isEmpty) {
+        if (state.recentList.isEmpty) {
           return const SizedBox();
         }
 
@@ -38,7 +38,7 @@ class RecentlyPlayedView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  ...state.recentPlayedList.map(
+                  ...state.recentList.map(
                     (recent) => RecentPlayedCard(recent: recent),
                   ),
                 ],

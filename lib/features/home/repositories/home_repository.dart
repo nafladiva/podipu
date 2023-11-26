@@ -5,7 +5,6 @@ import 'package:podipu/shared/data/models/podcast_mdl.dart';
 import 'package:podipu/shared/consts/hive_key.dart';
 import 'package:podipu/shared/consts/my_const.dart';
 import 'package:podipu/shared/data/local_storage/hive_local_storage.dart';
-import 'package:podipu/shared/data/models/recent_played_mdl.dart';
 import 'package:podipu/shared/utils/http_util.dart';
 
 abstract class HomeRepository {
@@ -13,7 +12,6 @@ abstract class HomeRepository {
   Future<List<PodcastMdl>> getPodcastRecommendations(String podcastId);
   Future<List<EpisodeMdl>> getEpisodeRecommendations(String episodeId);
   Future<EpisodeMdl> getRandomPodcastEpisode();
-  Future<List<RecentPlayedMdl>> getRecentPlayed();
 }
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -99,23 +97,6 @@ class HomeRepositoryImpl implements HomeRepository {
       );
 
       return List<EpisodeMdl>.from(decoded.map((x) => EpisodeMdl.fromMap(x)));
-    } catch (_) {
-      throw Exception();
-    }
-  }
-
-  @override
-  Future<List<RecentPlayedMdl>> getRecentPlayed() async {
-    try {
-      final recentList = await HiveLocalStorage.get(
-        boxName: HiveKey.recentPlayedBoxKey,
-      );
-
-      if (recentList.isEmpty) return [];
-
-      return List<RecentPlayedMdl>.from(
-        recentList.map((x) => RecentPlayedMdl.fromMap(json.decode(x))),
-      );
     } catch (_) {
       throw Exception();
     }

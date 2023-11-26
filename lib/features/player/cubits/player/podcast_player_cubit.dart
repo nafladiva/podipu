@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/themes/colors.dart';
-import 'package:podipu/features/home/cubit/home_cubit.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/utils/image_util.dart';
 
@@ -14,16 +13,15 @@ part 'podcast_player_state.dart';
 
 class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
   final PlayerRepository repository;
-  final HomeCubit homeCubit;
 
   PodcastPlayerCubit({
     required this.repository,
-    required this.homeCubit,
   }) : super(const PodcastPlayerState());
 
   Future<void> initAudio(
     AudioPlayer player, {
     required EpisodeMdl episode,
+    VoidCallback? callback,
   }) async {
     //TODO: add network states
 
@@ -54,6 +52,8 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
         emit(state.copyWith(episode: episode));
 
         playAudio(player);
+
+        callback?.call();
       } catch (e) {
         print('Error loading audio source: $e');
       }
@@ -61,10 +61,6 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
   }
 
   void playAudio(AudioPlayer player) async {
-    if (state.episode != null) {
-      setToRecentPlayed(episode: state.episode!);
-    }
-
     player.play();
     emit(state.copyWith(isPlaying: true));
   }
@@ -86,17 +82,5 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
     emit(state.copyWith(
       backgroundColor: dominantColor.withOpacity(0.5),
     ));
-  }
-
-  Future<void> setToRecentPlayed({
-    required EpisodeMdl episode,
-    Duration? latestTimestamp,
-  }) async {
-    try {
-      await repository.setAudioToRecentPlayed(
-        episode: episode,
-        latestTimestamp: latestTimestamp,
-      );
-    } catch (_) {}
   }
 }
