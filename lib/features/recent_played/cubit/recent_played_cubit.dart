@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/features/recent_played/repositories/recent_played_repository.dart';
+import 'package:podipu/shared/consts/my_const.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/data/models/recent_played_mdl.dart';
 import 'package:podipu/shared/states/view_states.dart';
@@ -41,12 +42,23 @@ class RecentPlayedCubit extends Cubit<RecentPlayedState> {
     Duration? latestTimestamp,
   }) async {
     try {
+      // max length of recentList: 10
+      // remove old recent played
+      if (state.recentList.length >= MyConst.maxRecentPlayedList) {
+        final oldRecentPlayed = state.recentList.last;
+        if (episode.id != oldRecentPlayed.episode.id) {
+          await repository.removeFromRecentPlayed(
+            episode: oldRecentPlayed.episode,
+          );
+        }
+      }
+
       await repository.setAudioToRecentPlayed(
         episode: episode,
         latestTimestamp: latestTimestamp,
       );
 
-      // rebuild RRecentPlayedView
+      // rebuild RecentPlayedView
       await getRecentPlayed();
     } catch (_) {}
   }

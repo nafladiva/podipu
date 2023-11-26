@@ -42,7 +42,7 @@ class PodcastCard extends StatelessWidget {
                 podcast.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TStyles.p1(),
+                style: TStyles.sh2(),
               ),
             )
           ],

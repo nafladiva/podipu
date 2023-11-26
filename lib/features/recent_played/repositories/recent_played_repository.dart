@@ -11,6 +11,9 @@ abstract class RecentPlayedRepository {
     required EpisodeMdl episode,
     Duration? latestTimestamp,
   });
+  Future<void> removeFromRecentPlayed({
+    required EpisodeMdl episode,
+  });
 }
 
 class RecentPlayedRepositoryImpl implements RecentPlayedRepository {
@@ -47,6 +50,20 @@ class RecentPlayedRepositoryImpl implements RecentPlayedRepository {
         boxName: HiveKey.recentPlayedBoxKey,
         key: episode.id,
         value: json.encode(recentEpisode.toMap()),
+      );
+    } catch (_) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<void> removeFromRecentPlayed({
+    required EpisodeMdl episode,
+  }) async {
+    try {
+      await HiveLocalStorage.remove(
+        boxName: HiveKey.recentPlayedBoxKey,
+        key: episode.id,
       );
     } catch (_) {
       throw Exception();
