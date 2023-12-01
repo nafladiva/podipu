@@ -19,7 +19,7 @@ class RecentPlayedMdl extends Equatable {
         json['episode'],
       ),
       playedAt: DateTime.parse(json['played_at']),
-      latestTimestamp: Duration(seconds: json['latest_time_stamp']),
+      latestTimestamp: Duration(milliseconds: json['latest_time_stamp']),
     );
   }
 
@@ -27,8 +27,20 @@ class RecentPlayedMdl extends Equatable {
     return <String, dynamic>{
       'episode': episode.toMap(),
       'played_at': playedAt.toIso8601String(),
-      'latest_time_stamp': latestTimestamp?.inSeconds ?? 0,
+      'latest_time_stamp': latestTimestamp?.inMilliseconds ?? 0,
     };
+  }
+
+  RecentPlayedMdl copyWith({
+    EpisodeMdl? episode,
+    DateTime? playedAt,
+    Duration? latestTimestamp,
+  }) {
+    return RecentPlayedMdl(
+      episode: episode ?? this.episode,
+      playedAt: playedAt ?? this.playedAt,
+      latestTimestamp: latestTimestamp ?? this.latestTimestamp,
+    );
   }
 
   @override

@@ -9,7 +9,10 @@ abstract class RecentPlayedRepository {
   Future<List<RecentPlayedMdl>> getRecentPlayed();
   Future<void> setAudioToRecentPlayed({
     required EpisodeMdl episode,
-    Duration? latestTimestamp,
+  });
+  Future<void> updatelatestTimestamp({
+    required EpisodeMdl episode,
+    required Duration? latestTimestamp,
   });
   Future<void> removeFromRecentPlayed({
     required EpisodeMdl episode,
@@ -37,19 +40,40 @@ class RecentPlayedRepositoryImpl implements RecentPlayedRepository {
   @override
   Future<void> setAudioToRecentPlayed({
     required EpisodeMdl episode,
-    Duration? latestTimestamp,
   }) async {
     try {
       final recentEpisode = RecentPlayedMdl(
         episode: episode,
         playedAt: DateTime.now(),
-        latestTimestamp: latestTimestamp,
       );
 
       await HiveLocalStorage.set(
         boxName: HiveKey.recentPlayedBoxKey,
         key: episode.id,
         value: json.encode(recentEpisode.toMap()),
+      );
+    } catch (_) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<void> updatelatestTimestamp({
+    required EpisodeMdl episode,
+    required Duration? latestTimestamp,
+  }) async {
+    try {
+      final data = await HiveLocalStorage.get(
+        boxName: HiveKey.recentPlayedBoxKey,
+        key: episode.id,
+      );
+      final recentPlayed = RecentPlayedMdl.fromMap(json.decode(data));
+      final updated = recentPlayed.copyWith(latestTimestamp: latestTimestamp);
+
+      await HiveLocalStorage.set(
+        boxName: HiveKey.recentPlayedBoxKey,
+        key: episode.id,
+        value: json.encode(updated.toMap()),
       );
     } catch (_) {
       throw Exception();

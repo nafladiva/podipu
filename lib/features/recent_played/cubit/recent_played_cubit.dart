@@ -39,7 +39,6 @@ class RecentPlayedCubit extends Cubit<RecentPlayedState> {
 
   Future<void> setToRecentPlayed({
     required EpisodeMdl episode,
-    Duration? latestTimestamp,
   }) async {
     try {
       // max length of recentList: 10
@@ -55,11 +54,24 @@ class RecentPlayedCubit extends Cubit<RecentPlayedState> {
 
       await repository.setAudioToRecentPlayed(
         episode: episode,
-        latestTimestamp: latestTimestamp,
       );
 
       // rebuild RecentPlayedView
       await getRecentPlayed();
     } catch (_) {}
+  }
+
+  Future<void> saveLatestTimestamp({
+    required EpisodeMdl episode,
+    required Duration latestTimestamp,
+  }) async {
+    try {
+      await repository.updatelatestTimestamp(
+        episode: episode,
+        latestTimestamp: latestTimestamp,
+      );
+    } catch (_) {
+      throw Exception();
+    }
   }
 }

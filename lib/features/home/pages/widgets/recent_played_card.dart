@@ -23,7 +23,10 @@ class RecentPlayedCard extends StatelessWidget {
           PersistentNavBarNavigator.pushDynamicScreen(
             context,
             screen: MaterialPageRoute(
-              builder: (_) => PlayerPage(episode: recent.episode),
+              builder: (_) => PlayerPage(
+                episode: recent.episode,
+                latestTimestamp: recent.latestTimestamp,
+              ),
               fullscreenDialog: true,
             ),
             withNavBar: false,
