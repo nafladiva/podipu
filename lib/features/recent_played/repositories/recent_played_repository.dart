@@ -62,21 +62,23 @@ class RecentPlayedRepositoryImpl implements RecentPlayedRepository {
     required EpisodeMdl episode,
     required Duration? latestTimestamp,
   }) async {
-    try {
-      final data = await HiveLocalStorage.get(
-        boxName: HiveKey.recentPlayedBoxKey,
-        key: episode.id,
-      );
-      final recentPlayed = RecentPlayedMdl.fromMap(json.decode(data));
-      final updated = recentPlayed.copyWith(latestTimestamp: latestTimestamp);
+    if (latestTimestamp != null) {
+      try {
+        final data = await HiveLocalStorage.get(
+          boxName: HiveKey.recentPlayedBoxKey,
+          key: episode.id,
+        );
+        final recentPlayed = RecentPlayedMdl.fromMap(json.decode(data));
+        final updated = recentPlayed.copyWith(latestTimestamp: latestTimestamp);
 
-      await HiveLocalStorage.set(
-        boxName: HiveKey.recentPlayedBoxKey,
-        key: episode.id,
-        value: json.encode(updated.toMap()),
-      );
-    } catch (_) {
-      throw Exception();
+        await HiveLocalStorage.set(
+          boxName: HiveKey.recentPlayedBoxKey,
+          key: episode.id,
+          value: json.encode(updated.toMap()),
+        );
+      } catch (_) {
+        throw Exception();
+      }
     }
   }
 

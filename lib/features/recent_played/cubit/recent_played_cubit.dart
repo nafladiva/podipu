@@ -63,7 +63,7 @@ class RecentPlayedCubit extends Cubit<RecentPlayedState> {
 
   Future<void> saveLatestTimestamp({
     required EpisodeMdl episode,
-    required Duration latestTimestamp,
+    required Duration? latestTimestamp,
   }) async {
     try {
       await repository.updatelatestTimestamp(

@@ -17,15 +17,16 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
   Future<void> initAudio(
     AudioPlayer player, {
     required EpisodeMdl episode,
-    VoidCallback? callback,
     Duration? latestPosition,
+    VoidCallback? callback,
+    Function(EpisodeMdl?, Duration)? onStopPreviousAudio,
   }) async {
     // TODO: use loadStatus to UI
     emit(state.copyWith(loadStatus: const ViewState.loading()));
 
     if (state.episode?.id != episode.id) {
       if (player.playing) {
-        stopAudio(player);
+        stopAudio(player, onStopAudio: onStopPreviousAudio);
       }
 
       final session = await AudioSession.instance;
@@ -43,7 +44,6 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
       try {
         // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
 
-        print('naff: initial position: $latestPosition');
         await player.setAudioSource(
           AudioSource.uri(Uri.parse(episode.audioUrl)),
           initialPosition: latestPosition,
@@ -72,7 +72,11 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
     emit(state.copyWith(isPlaying: false));
   }
 
-  void stopAudio(AudioPlayer player) {
+  void stopAudio(
+    AudioPlayer player, {
+    Function(EpisodeMdl?, Duration)? onStopAudio,
+  }) {
+    onStopAudio?.call(state.episode, player.position);
     player.stop();
   }
 
