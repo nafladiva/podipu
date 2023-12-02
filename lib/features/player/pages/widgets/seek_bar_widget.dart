@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:podipu/common/themes/colors.dart';
 
 class SeekBar extends StatefulWidget {
   final Duration duration;
@@ -34,8 +33,8 @@ class SeekBarState extends State<SeekBar> {
     super.didChangeDependencies();
 
     _sliderThemeData = SliderTheme.of(context).copyWith(
-      thumbColor: MyColor.primary.shade200,
-      activeTrackColor: MyColor.primary.shade200,
+      thumbColor: Colors.white,
+      activeTrackColor: Colors.white,
       trackHeight: 2.0,
     );
   }
@@ -102,11 +101,12 @@ class SeekBarState extends State<SeekBar> {
           right: 16.0,
           bottom: 0.0,
           child: Text(
-              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                      .firstMatch("$_remaining")
-                      ?.group(1) ??
-                  '$_remaining',
-              style: Theme.of(context).textTheme.bodySmall),
+            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                    .firstMatch("$_remaining")
+                    ?.group(1) ??
+                '$_remaining',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
         ),
       ],
     );

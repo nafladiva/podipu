@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/common/consts/size_const.dart';
+import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
@@ -11,8 +12,9 @@ import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../common/player_common.dart';
+import 'widgets/seek_bar_widget.dart';
 import 'widgets/control_buttons.dart';
+import 'widgets/save_button.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({
@@ -86,6 +88,22 @@ class _PlayerPageState extends State<PlayerPage> {
                 height: MediaQuery.of(context).size.height,
                 color: state.backgroundColor,
               ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.transparent,
+                      MyColor.dark,
+                    ],
+                    begin: FractionalOffset(0.0, 0.3),
+                    end: FractionalOffset(0.0, 1.3),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp,
+                  ),
+                ),
+              ),
               SafeArea(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(
@@ -105,11 +123,13 @@ class _PlayerPageState extends State<PlayerPage> {
                           width: MediaQuery.of(context).size.width * 0.7,
                         ),
                       ),
-                      const SizedBox(height: 28),
+                      const SizedBox(height: 30),
                       Text(
                         widget.episode.title,
+                        textAlign: TextAlign.center,
                         style: TStyles.sh1(),
                       ),
+                      const SizedBox(height: 10),
                       ControlButtons(
                         player: _player,
                       ),
@@ -137,6 +157,15 @@ class _PlayerPageState extends State<PlayerPage> {
                       ),
                     ],
                   ),
+                ),
+              ),
+              Positioned(
+                width: MediaQuery.of(context).size.width,
+                bottom: 45,
+                child: SaveButton(
+                  // TODO: integrate
+                  isSaved: false,
+                  onTap: () {},
                 ),
               ),
             ],

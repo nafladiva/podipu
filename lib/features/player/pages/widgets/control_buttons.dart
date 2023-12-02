@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 
-import '../../common/player_common.dart';
+import 'seek_bar_widget.dart';
 
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
@@ -83,8 +83,10 @@ class ControlButtons extends StatelessWidget {
           StreamBuilder<double>(
             stream: player.speedStream,
             builder: (context, snapshot) => IconButton(
-              icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              icon: Text(
+                "${snapshot.data?.toStringAsFixed(1)}x",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               onPressed: () {
                 showSliderDialog(
                   context: context,

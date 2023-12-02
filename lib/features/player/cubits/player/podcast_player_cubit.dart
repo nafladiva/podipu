@@ -84,7 +84,7 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
     final dominantColor = await ImageUtil.getDominantColor(imagePath);
 
     emit(state.copyWith(
-      backgroundColor: dominantColor.withOpacity(0.5),
+      backgroundColor: dominantColor.withOpacity(0.75),
     ));
   }
 }

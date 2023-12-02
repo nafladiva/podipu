@@ -7,4 +7,6 @@ class MyColor {
   static const text = Color(0xFFFDF0F0);
   static const shadow = Color(0xFF0F0F0F);
   static const dark = Color(0xFF18122B);
+
+  static const green = Color(0xFF3CCF4E);
 }
