@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common/themes/themes.dart';
 
 import 'features/main_page/cubit/main_cubit.dart';
-import 'features/main_page/pages/main_page.dart';
 import 'features/player/cubits/player/podcast_player_cubit.dart';
 import 'features/recent_played/cubit/recent_played_cubit.dart';
 import 'features/saved/cubit/saved_cubit.dart';
+import 'features/splash/splash.dart';
 import 'injection.dart' as di;
 import 'shared/data/local_storage/hive_local_storage.dart';
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<PodcastPlayerCubit>(),
         ),
         BlocProvider(
-          create: (_) => di.locator<MainCubit>(),
+          create: (_) => di.locator<MainCubit>()..onBuild(),
         ),
         BlocProvider(
           create: (_) => di.locator<RecentPlayedCubit>()..onBuild(),
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'podipu',
         theme: Themes.init,
-        home: const MainPage(),
+        home: const SplashPage(),
       ),
     );
   }
