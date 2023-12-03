@@ -13,6 +13,7 @@ class HiveLocalStorage {
     //open all boxes
     await Hive.openBox<String>(HiveKey.cacheBoxKey);
     await Hive.openBox<String>(HiveKey.recentPlayedBoxKey);
+    await Hive.openBox<String>(HiveKey.savedEpisodeBoxKey);
   }
 
   static Future<dynamic> get({

@@ -7,6 +7,7 @@ import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
+import 'package:podipu/features/saved/cubit/saved_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
@@ -38,6 +39,9 @@ class _PlayerPageState extends State<PlayerPage> {
     super.initState();
 
     final playerCubit = BlocProvider.of<PodcastPlayerCubit>(context);
+    final recentPlayedCubit = BlocProvider.of<RecentPlayedCubit>(context);
+    final savedCubit = BlocProvider.of<SavedCubit>(context);
+
     playerCubit.setBackgroundColor(widget.episode.imageUrl);
     playerCubit.initAudio(
       _player,
@@ -45,16 +49,19 @@ class _PlayerPageState extends State<PlayerPage> {
       latestPosition: widget.latestTimestamp,
       onStopPreviousAudio: (prevEpisode, prevPosition) async {
         if (prevEpisode != null) {
-          await context.read<RecentPlayedCubit>().saveLatestTimestamp(
-                episode: prevEpisode,
-                latestTimestamp: prevPosition,
-              );
+          await recentPlayedCubit.saveLatestTimestamp(
+            episode: prevEpisode,
+            latestTimestamp: prevPosition,
+          );
         }
       },
       callback: () async {
-        await context
-            .read<RecentPlayedCubit>()
-            .setToRecentPlayed(episode: widget.episode);
+        await recentPlayedCubit.setToRecentPlayed(episode: widget.episode);
+
+        final isSaved = await savedCubit.checkEpisodeSavedStatus(
+          episode: widget.episode,
+        );
+        playerCubit.setSavedStatus(isSaved);
       },
     );
   }
@@ -162,10 +169,24 @@ class _PlayerPageState extends State<PlayerPage> {
               Positioned(
                 width: MediaQuery.of(context).size.width,
                 bottom: 45,
-                child: SaveButton(
-                  // TODO: integrate
-                  isSaved: false,
-                  onTap: () {},
+                child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
+                  builder: (context, state) {
+                    return SaveButton(
+                      isSaved: state.isSaved,
+                      isLoading: state.loadStatus.isLoading,
+                      onTap: () {
+                        final savedCubit = context.read<SavedCubit>();
+                        final playerCubit = context.read<PodcastPlayerCubit>();
+
+                        if (state.isSaved) {
+                          savedCubit.removeFromSaved(episode: widget.episode);
+                        } else {
+                          savedCubit.saveEpisode(episode: widget.episode);
+                        }
+                        playerCubit.setSavedStatus(!state.isSaved);
+                      },
+                    );
+                  },
                 ),
               ),
             ],

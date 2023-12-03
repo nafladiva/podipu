@@ -5,6 +5,7 @@ import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/features/home/home.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/player/pages/widgets/player_box.dart';
+import 'package:podipu/features/saved/saved.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/consts/my_const.dart';
 
@@ -19,19 +20,16 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final mainCubit = locator<MainCubit>();
-  // late PageController pageController;
   late PersistentTabController controller;
 
   @override
   void initState() {
     super.initState();
-    // pageController = PageController();
     controller = PersistentTabController();
   }
 
   @override
   void dispose() {
-    // pageController.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -49,11 +47,7 @@ class _MainPageState extends State<MainPage> {
             resizeToAvoidBottomInset: true,
             screens: const [
               HomePage(),
-              Scaffold(
-                body: Center(
-                  child: Text('Saved podcasts'),
-                ),
-              ),
+              SavedPage(),
             ],
             items: [
               PersistentBottomNavBarItem(

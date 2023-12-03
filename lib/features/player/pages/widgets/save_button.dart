@@ -6,14 +6,18 @@ class SaveButton extends StatelessWidget {
   const SaveButton({
     super.key,
     required this.onTap,
+    required this.isLoading,
     this.isSaved = false,
   });
 
   final VoidCallback onTap;
   final bool isSaved;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) return const SizedBox();
+
     return GestureDetector(
       onTap: onTap,
       child: Container(

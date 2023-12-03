@@ -22,9 +22,10 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
     Function(EpisodeMdl?, Duration)? onStopPreviousAudio,
   }) async {
     // TODO: use loadStatus to UI
-    emit(state.copyWith(loadStatus: const ViewState.loading()));
 
     if (state.episode?.id != episode.id) {
+      emit(state.copyWith(loadStatus: const ViewState.loading()));
+
       if (player.playing) {
         stopAudio(player, onStopAudio: onStopPreviousAudio);
       }
@@ -86,5 +87,9 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
     emit(state.copyWith(
       backgroundColor: dominantColor.withOpacity(0.75),
     ));
+  }
+
+  void setSavedStatus(bool isSaved) {
+    emit(state.copyWith(isSaved: isSaved));
   }
 }

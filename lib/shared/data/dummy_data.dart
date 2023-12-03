@@ -55,17 +55,18 @@ class DummyData {
     type: 'episodic',
     updateFrequencyHours: 24,
     episodes: <EpisodeMdl>[
-      // EpisodeMdl(
-      //   id: '4e7c59e10e4640b98f2f3cb1777dbb43',
-      //   audioUrl:
-      //       'https://www.listennotes.com/e/p/4e7c59e10e4640b98f2f3cb1777dbb43/',
-      //   imageUrl:
-      //       'https://production.listennotes.com/podcasts/star-wars-7x7-the/864-part-2-of-my-new--vDBMTjY_mK-2WVsxtU0f3m.600x315.jpg',
-      //   title: '864: Part 2 of My (New) Conversation With Bobby Roberts',
-      //   description:
-      //       "<p>The second half of my latest conversation with Bobby Roberts, Podcast Emeritus from Full of Sith and now Star Wars \"Podcast Force Ghost at Large.\" Punch it!</p> <p>***We’re listener supported! Go to http://Patreon.com/sw7x7 to donate to the Star Wars 7x7 podcast, and you’ll get some fabulous rewards for your pledge.*** </p> <p>Check out SW7x7.com for full Star Wars 7x7 show notes and links, and to comment on any of the content of this episode! If you like what you've heard, please leave us a rating or review on iTunes or Stitcher, which will also help more people discover this Star Wars podcast.</p> <p>Don't forget to join the Star Wars 7x7 fun on Facebook at Facebook.com/SW7x7, and follow the breaking news Twitter feed at Twitter.com/SW7x7Podcast. We're also on Pinterest and Instagram as \"SW7x7\" too, and we'd love to connect with you there!</p>",
-      //   audioLengthSec: 2447,
-      // ),
+      EpisodeMdl(
+        id: '4e7c59e10e4640b98f2f3cb1777dbb43',
+        audioUrl:
+            'https://www.listennotes.com/e/p/4e7c59e10e4640b98f2f3cb1777dbb43/',
+        imageUrl:
+            'https://production.listennotes.com/podcasts/star-wars-7x7-the/864-part-2-of-my-new--vDBMTjY_mK-2WVsxtU0f3m.600x315.jpg',
+        title: '864: Part 2 of My (New) Conversation With Bobby Roberts',
+        description:
+            "<p>The second half of my latest conversation with Bobby Roberts, Podcast Emeritus from Full of Sith and now Star Wars \"Podcast Force Ghost at Large.\" Punch it!</p> <p>***We’re listener supported! Go to http://Patreon.com/sw7x7 to donate to the Star Wars 7x7 podcast, and you’ll get some fabulous rewards for your pledge.*** </p> <p>Check out SW7x7.com for full Star Wars 7x7 show notes and links, and to comment on any of the content of this episode! If you like what you've heard, please leave us a rating or review on iTunes or Stitcher, which will also help more people discover this Star Wars podcast.</p> <p>Don't forget to join the Star Wars 7x7 fun on Facebook at Facebook.com/SW7x7, and follow the breaking news Twitter feed at Twitter.com/SW7x7Podcast. We're also on Pinterest and Instagram as \"SW7x7\" too, and we'd love to connect with you there!</p>",
+        audioLengthSec: 2447,
+        pubDateMS: 123,
+      ),
       // EpisodeMdl(
       //   id: '9ae0e2e49a9c477191263df90adf7f3e',
       //   audioUrl:

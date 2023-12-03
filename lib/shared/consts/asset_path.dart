@@ -1,4 +1,6 @@
 class AssetPath {
+  static const String imgEmpty = 'assets/images/empty-img.png';
+
   static const String starboyCoverImg = 'assets/images/starboy-cover.jpeg';
   static const String snoozeCoverImg = 'assets/images/sza-cover.jpeg';
   static const String tallyCoverImg = 'assets/images/tally-cover.jpg';

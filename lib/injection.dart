@@ -5,6 +5,8 @@ import 'features/main_page/cubit/main_cubit.dart';
 import 'features/player/cubits/player/podcast_player_cubit.dart';
 import 'features/recent_played/cubit/recent_played_cubit.dart';
 import 'features/recent_played/repositories/recent_played_repository.dart';
+import 'features/saved/cubit/saved_cubit.dart';
+import 'features/saved/repositories/saved_repository.dart';
 
 final locator = GetIt.instance;
 
@@ -20,10 +22,18 @@ void init() {
       repository: locator(),
     ),
   );
+  locator.registerFactory(
+    () => SavedCubit(
+      repository: locator(),
+    ),
+  );
 
   locator.registerSingleton(AudioPlayer());
 
   locator.registerLazySingleton<RecentPlayedRepository>(
     () => RecentPlayedRepositoryImpl(),
+  );
+  locator.registerLazySingleton<SavedRepository>(
+    () => SavedRepositoryImpl(),
   );
 }
