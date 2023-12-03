@@ -46,6 +46,7 @@ class SavedPage extends StatelessWidget {
                       ...state.savedList.map(
                         (saved) => SavedCard(
                           episode: saved.episode,
+                          latestTimestamp: saved.latestTimestamp,
                         ),
                       ),
                     ],

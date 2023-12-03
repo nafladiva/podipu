@@ -49,10 +49,19 @@ class _PlayerPageState extends State<PlayerPage> {
       latestPosition: widget.latestTimestamp,
       onStopPreviousAudio: (prevEpisode, prevPosition) async {
         if (prevEpisode != null) {
+          // save latest timestamp for recent played list
           await recentPlayedCubit.saveLatestTimestamp(
             episode: prevEpisode,
             latestTimestamp: prevPosition,
           );
+
+          // save latest timestamp for saved episode in saved list
+          if (playerCubit.state.isSaved) {
+            await savedCubit.saveLatestTimestamp(
+              episode: prevEpisode,
+              latestTimestamp: prevPosition,
+            );
+          }
         }
       },
       callback: () async {

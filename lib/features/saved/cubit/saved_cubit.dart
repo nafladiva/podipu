@@ -23,10 +23,12 @@ class SavedCubit extends Cubit<SavedState> {
 
     try {
       final savedList = await repository.getSavedList();
+      final sortedByDate = savedList
+        ..sort((a, b) => b.savedAt.compareTo(a.savedAt));
 
       emit(
         state.copyWith(
-          savedList: savedList,
+          savedList: sortedByDate,
           loadStatus: const ViewState.success(),
         ),
       );
@@ -53,12 +55,27 @@ class SavedCubit extends Cubit<SavedState> {
     try {
       final saved = SavedMdl(
         episode: episode,
+        savedAt: DateTime.now(),
         latestTimestamp: latestTimestamp,
       );
 
       await repository.saveEpisode(saved: saved);
       await getSavedList();
     } catch (e) {
+      throw Exception();
+    }
+  }
+
+  Future<void> saveLatestTimestamp({
+    required EpisodeMdl episode,
+    required Duration? latestTimestamp,
+  }) async {
+    try {
+      await repository.updateLatestTimestamp(
+        episode: episode,
+        latestTimestamp: latestTimestamp,
+      );
+    } catch (_) {
       throw Exception();
     }
   }

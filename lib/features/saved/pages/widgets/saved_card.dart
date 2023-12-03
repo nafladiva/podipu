@@ -10,9 +10,11 @@ class SavedCard extends StatelessWidget {
   const SavedCard({
     super.key,
     required this.episode,
+    this.latestTimestamp,
   });
 
   final EpisodeMdl episode;
+  final Duration? latestTimestamp;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,10 @@ class SavedCard extends StatelessWidget {
         onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
           context,
           screen: MaterialPageRoute(
-            builder: (_) => PlayerPage(episode: episode),
+            builder: (_) => PlayerPage(
+              episode: episode,
+              latestTimestamp: latestTimestamp,
+            ),
             fullscreenDialog: true,
           ),
           withNavBar: false,

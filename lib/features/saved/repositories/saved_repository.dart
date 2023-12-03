@@ -9,6 +9,10 @@ abstract class SavedRepository {
   Future<List<SavedMdl>> getSavedList();
   Future<bool> checkEpisodeSavedStatus({required EpisodeMdl episode});
   Future<void> saveEpisode({required SavedMdl saved});
+  Future<void> updateLatestTimestamp({
+    required EpisodeMdl episode,
+    required Duration? latestTimestamp,
+  });
   Future<void> removeFromSaved({required EpisodeMdl episode});
 }
 
@@ -55,6 +59,31 @@ class SavedRepositoryImpl implements SavedRepository {
       );
     } catch (e) {
       throw Exception();
+    }
+  }
+
+  @override
+  Future<void> updateLatestTimestamp({
+    required EpisodeMdl episode,
+    required Duration? latestTimestamp,
+  }) async {
+    if (latestTimestamp != null) {
+      try {
+        final data = await HiveLocalStorage.get(
+          boxName: HiveKey.savedEpisodeBoxKey,
+          key: episode.id,
+        );
+        final saved = SavedMdl.fromMap(json.decode(data));
+        final updated = saved.copyWith(latestTimestamp: latestTimestamp);
+
+        await HiveLocalStorage.set(
+          boxName: HiveKey.savedEpisodeBoxKey,
+          key: episode.id,
+          value: json.encode(updated.toMap()),
+        );
+      } catch (_) {
+        throw Exception();
+      }
     }
   }
 
