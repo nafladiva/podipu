@@ -5,6 +5,7 @@ import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/podcast_detail/repositories/podcast_detail_repository.dart';
 import 'package:podipu/shared/extensions/string_ext.dart';
+import 'package:podipu/shared/utils/html_util.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 
@@ -102,10 +103,8 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
                         '🎯 ABOUT THIS PODCAST',
                         style: TStyles.sh1(),
                       ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        state.podcast?.description ?? '',
-                        style: TStyles.p2(),
+                      HtmlUtil.build(
+                        html: state.podcast?.description ?? '',
                       ),
                       const SizedBox(height: 12),
                       Wrap(
