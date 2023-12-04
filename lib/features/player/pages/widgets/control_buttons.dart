@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
-
-import 'seek_bar_widget.dart';
 
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
@@ -22,20 +21,18 @@ class ControlButtons extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Opens volume slider dialog
+          // replay previous 10 seconds
           IconButton(
-            icon: const Icon(Icons.volume_up),
+            icon: const Icon(
+              Icons.replay_10_rounded,
+              size: 28,
+            ),
             onPressed: () {
-              showSliderDialog(
-                context: context,
-                title: "Adjust volume",
-                divisions: 10,
-                min: 0.0,
-                max: 1.0,
-                value: player.volume,
-                stream: player.volumeStream,
-                onChanged: player.setVolume,
-              );
+              final currentDuration = player.position;
+
+              if (currentDuration.inSeconds > 10) {
+                player.seek(Duration(seconds: currentDuration.inSeconds - 10));
+              }
             },
           ),
 
@@ -56,7 +53,9 @@ class ControlButtons extends StatelessWidget {
                   margin: const EdgeInsets.all(8.0),
                   width: 64.0,
                   height: 64.0,
-                  child: const CircularProgressIndicator(),
+                  child: const CircularProgressIndicator(
+                    color: MyColor.primaryPink,
+                  ),
                 );
               } else if (playing != true) {
                 return IconButton(
@@ -79,27 +78,18 @@ class ControlButtons extends StatelessWidget {
               }
             },
           ),
-          // Opens speed slider dialog
-          StreamBuilder<double>(
-            stream: player.speedStream,
-            builder: (context, snapshot) => IconButton(
-              icon: Text(
-                "${snapshot.data?.toStringAsFixed(1)}x",
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                showSliderDialog(
-                  context: context,
-                  title: "Adjust speed",
-                  divisions: 10,
-                  min: 0.5,
-                  max: 1.5,
-                  value: player.speed,
-                  stream: player.speedStream,
-                  onChanged: player.setSpeed,
-                );
-              },
+
+          // skip to next 10 seconds
+          IconButton(
+            icon: const Icon(
+              Icons.forward_10_rounded,
+              size: 28,
             ),
+            onPressed: () {
+              final currentDuration = player.position;
+
+              player.seek(Duration(seconds: currentDuration.inSeconds + 10));
+            },
           ),
         ],
       ),
