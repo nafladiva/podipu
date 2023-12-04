@@ -93,13 +93,16 @@ class _PlayerPageState extends State<PlayerPage> {
       bloc: context.read<PodcastPlayerCubit>(),
       builder: (context, state) {
         return Scaffold(
+          extendBodyBehindAppBar: true,
           appBar: MyAppBar(
             title: widget.episode.podcast?.publisher ?? '',
             backgroundColor: state.backgroundColor,
           ),
           body: Stack(
             children: [
-              Container(
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 700),
+                curve: Curves.easeInOut,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 color: state.backgroundColor,

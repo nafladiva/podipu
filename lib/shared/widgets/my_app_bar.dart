@@ -16,6 +16,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: backgroundColor ?? Colors.transparent,
       shadowColor: Colors.transparent,
+      forceMaterialTransparency: true,
       title: title != null
           ? Text(
               title ?? '',
