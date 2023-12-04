@@ -10,6 +10,7 @@ import 'package:podipu/shared/utils/image_util.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 
 import '../cubit/podcast_detail_cubit.dart';
+import 'widgets/detail_page_loader.dart';
 import 'widgets/episode_item.dart';
 import 'widgets/info_badge.dart';
 
@@ -54,7 +55,7 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
           child: BlocBuilder<PodcastDetailCubit, PodcastDetailState>(
             builder: (context, state) {
               if (state.podcastDetailLoadStatus.isLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const DetailPageLoader();
               }
 
               return SingleChildScrollView(
