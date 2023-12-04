@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
@@ -36,46 +37,49 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          PersistentTabView(
-            context,
-            controller: controller,
-            backgroundColor: MyColor.dark,
-            resizeToAvoidBottomInset: true,
-            screens: const [
-              HomePage(),
-              SavedPage(),
-            ],
-            items: [
-              PersistentBottomNavBarItem(
-                title: 'Home',
-                icon: const Icon(Icons.home_filled),
-                activeColorPrimary: MyColor.primaryPink,
-              ),
-              PersistentBottomNavBarItem(
-                title: 'Saved',
-                icon: const Icon(Icons.bookmark),
-                activeColorPrimary: MyColor.primaryPink,
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: MyConst.bottomNavHeight +
-                  MediaQuery.of(context).padding.bottom,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            PersistentTabView(
+              context,
+              controller: controller,
+              backgroundColor: MyColor.dark,
+              resizeToAvoidBottomInset: true,
+              screens: const [
+                HomePage(),
+                SavedPage(),
+              ],
+              items: [
+                PersistentBottomNavBarItem(
+                  title: 'Home',
+                  icon: const Icon(Icons.home_filled),
+                  activeColorPrimary: MyColor.primaryPink,
+                ),
+                PersistentBottomNavBarItem(
+                  title: 'Saved',
+                  icon: const Icon(Icons.bookmark),
+                  activeColorPrimary: MyColor.primaryPink,
+                ),
+              ],
             ),
-            child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
-              builder: (context, state) {
-                if (!state.isAudioExist) return const SizedBox();
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: MyConst.bottomNavHeight +
+                    MediaQuery.of(context).padding.bottom,
+              ),
+              child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
+                builder: (context, state) {
+                  if (!state.isAudioExist) return const SizedBox();
 
-                return PlayerBox(episode: state.episode!);
-              },
+                  return PlayerBox(episode: state.episode!);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

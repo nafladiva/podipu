@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
@@ -40,56 +39,53 @@ class _HomePageState extends State<HomePage> {
 
     return BlocProvider.value(
       value: homeCubit,
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
-          builder: (context, state) {
-            return Scaffold(
-              body: SafeArea(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    await homeCubit.onBuild();
-                    await recentPlayedCubit.getRecentPlayed();
-                  },
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: SizeConst.kMarginY,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: SizeConst.kMarginX,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Hola!👋🏻✨',
-                                style: TStyles.h1(),
-                              ),
-                              Text(
-                                'what kind of podcast you wanna hear?',
-                                style: TStyles.p1(),
-                              ),
-                            ],
-                          ),
+      child: BlocBuilder<PodcastPlayerCubit, PodcastPlayerState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: SafeArea(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await homeCubit.onBuild();
+                  await recentPlayedCubit.getRecentPlayed();
+                },
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: SizeConst.kMarginY,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: SizeConst.kMarginX,
                         ),
-                        const SizedBox(height: 40),
-                        const PopularPodcastView(),
-                        const SizedBox(height: 40),
-                        const RecentlyPlayedView(),
-                        const JustListenView(),
-                        const SizedBox(height: 60),
-                      ],
-                    ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hola!👋🏻✨',
+                              style: TStyles.h1(),
+                            ),
+                            Text(
+                              'what kind of podcast you wanna hear?',
+                              style: TStyles.p1(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      const PopularPodcastView(),
+                      const SizedBox(height: 40),
+                      const RecentlyPlayedView(),
+                      const JustListenView(),
+                      const SizedBox(height: 60),
+                    ],
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

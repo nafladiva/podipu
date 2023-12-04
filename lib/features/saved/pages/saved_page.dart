@@ -6,6 +6,7 @@ import 'package:podipu/common/themes/text_styles.dart';
 import '../cubit/saved_cubit.dart';
 import 'views/empy_saved_view.dart';
 import 'widgets/saved_card.dart';
+import 'widgets/saved_list_loader.dart';
 
 class SavedPage extends StatelessWidget {
   const SavedPage({super.key});
@@ -36,9 +37,7 @@ class SavedPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 35),
                   if (state.loadStatus.isLoading) ...[
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    const SaveListLoader(),
                   ] else ...[
                     if (isEmpty) ...[
                       const EmptySavedView(),

@@ -7,6 +7,7 @@ import 'package:podipu/features/player/player.dart';
 import 'package:podipu/shared/utils/image_util.dart';
 
 import '../../cubit/home_cubit.dart';
+import '../widgets/just_lister_loader.dart';
 
 class JustListenView extends StatelessWidget {
   const JustListenView({super.key});
@@ -15,10 +16,6 @@ class JustListenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        if (state.randomEpisodeLoadStatus.isLoading) {
-          return const CircularProgressIndicator();
-        }
-
         if (state.randomEpisode == null) {
           return const SizedBox();
         }
@@ -33,52 +30,56 @@ class JustListenView extends StatelessWidget {
                 style: TStyles.sh2(),
               ),
               const SizedBox(height: 12),
-              InkWell(
-                onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
-                  context,
-                  screen: MaterialPageRoute(
-                    builder: (_) => PlayerPage(episode: state.randomEpisode!),
-                    fullscreenDialog: true,
+              if (state.randomEpisodeLoadStatus.isLoading) ...[
+                const JustListenLoader(),
+              ] else ...[
+                InkWell(
+                  onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
+                    context,
+                    screen: MaterialPageRoute(
+                      builder: (_) => PlayerPage(episode: state.randomEpisode!),
+                      fullscreenDialog: true,
+                    ),
+                    withNavBar: false,
                   ),
-                  withNavBar: false,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: ImageUtil.buildCachedNetworkImage(
-                        url: state.randomEpisode!.imageUrl,
-                        width: 110.0,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: ImageUtil.buildCachedNetworkImage(
+                          url: state.randomEpisode!.imageUrl,
+                          width: 110.0,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            state.randomEpisode!.podcast?.title ?? '',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TStyles.sh2(),
-                          ),
-                          const SizedBox(height: 3),
-                          Text(
-                            state.randomEpisode!.title,
-                            style: TStyles.p2(),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            state.randomEpisode!.podcast?.publisher ?? '',
-                            style: TStyles.p1(color: MyColor.primaryPink),
-                          ),
-                        ],
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.randomEpisode!.podcast?.title ?? '',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TStyles.sh2(),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              state.randomEpisode!.title,
+                              style: TStyles.p2(),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              state.randomEpisode!.podcast?.publisher ?? '',
+                              style: TStyles.p1(color: MyColor.primaryPink),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ],
           ),
         );
