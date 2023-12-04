@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -10,6 +9,7 @@ import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
 import 'package:podipu/features/saved/cubit/saved_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
+import 'package:podipu/shared/utils/image_util.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -134,11 +134,8 @@ class _PlayerPageState extends State<PlayerPage> {
                       const SizedBox(height: 20),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.episode.imageUrl,
-                          placeholder: (_, __) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (_, __, ___) => const Icon(Icons.error),
+                        child: ImageUtil.buildCachedNetworkImage(
+                          url: widget.episode.imageUrl,
                           width: MediaQuery.of(context).size.width * 0.7,
                         ),
                       ),

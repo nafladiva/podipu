@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/consts/size_const.dart';
@@ -7,8 +6,8 @@ import 'package:podipu/features/podcast_detail/repositories/podcast_detail_repos
 import 'package:podipu/features/saved/repositories/saved_repository.dart';
 import 'package:podipu/shared/extensions/string_ext.dart';
 import 'package:podipu/shared/utils/html_util.dart';
+import 'package:podipu/shared/utils/image_util.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
-import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
 
 import '../cubit/podcast_detail_cubit.dart';
 import 'widgets/episode_item.dart';
@@ -72,14 +71,8 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
-                            child: CachedNetworkImage(
-                              imageUrl: state.podcast?.imageUrl ?? '',
-                              placeholder: (_, __) => const MyShimmerLoader(
-                                width: 120.0,
-                                height: 120.0,
-                              ),
-                              errorWidget: (_, __, ___) =>
-                                  const Icon(Icons.error),
+                            child: ImageUtil.buildCachedNetworkImage(
+                              url: state.podcast?.imageUrl ?? '',
                               width: 120.0,
                             ),
                           ),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -8,6 +7,7 @@ import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/injection.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
+import 'package:podipu/shared/utils/image_util.dart';
 
 import '../player_page.dart';
 
@@ -44,10 +44,8 @@ class PlayerBox extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4.0),
-              child: CachedNetworkImage(
-                imageUrl: episode.imageUrl,
-                placeholder: (_, __) => const CircularProgressIndicator(),
-                errorWidget: (_, __, ___) => const Icon(Icons.error),
+              child: ImageUtil.buildCachedNetworkImage(
+                url: episode.imageUrl,
                 width: 40,
               ),
             ),

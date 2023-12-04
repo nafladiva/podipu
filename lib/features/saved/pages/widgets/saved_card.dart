@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -8,6 +7,7 @@ import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/player/player.dart';
 import 'package:podipu/features/saved/cubit/saved_cubit.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
+import 'package:podipu/shared/utils/image_util.dart';
 
 import 'saved_card_options.dart';
 
@@ -65,10 +65,8 @@ class _SavedCardState extends State<SavedCard> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.episode.imageUrl,
-                      placeholder: (_, __) => const CircularProgressIndicator(),
-                      errorWidget: (_, __, ___) => const Icon(Icons.error),
+                    child: ImageUtil.buildCachedNetworkImage(
+                      url: widget.episode.imageUrl,
                       width: 70.0,
                     ),
                   ),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -10,7 +9,7 @@ import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/features/player/player.dart';
 import 'package:podipu/shared/utils/date_time_util.dart';
 import 'package:podipu/shared/utils/duration_util.dart';
-import 'package:podipu/shared/widgets/my_shimmer_loader.dart';
+import 'package:podipu/shared/utils/image_util.dart';
 
 class EpisodeItem extends StatelessWidget {
   const EpisodeItem({
@@ -47,13 +46,9 @@ class EpisodeItem extends StatelessWidget {
                   width: 60.0,
                   height: 60.0,
                   color: MyColor.text.withOpacity(0.1),
-                  child: CachedNetworkImage(
-                    imageUrl: episode!.imageUrl,
-                    placeholder: (_, __) => const MyShimmerLoader(
-                      width: 60.0,
-                      height: 60.0,
-                    ),
-                    errorWidget: (_, __, ___) => const Icon(Icons.error),
+                  child: ImageUtil.buildCachedNetworkImage(
+                    url: episode!.imageUrl,
+                    width: 60.0,
                   ),
                 ),
               ),

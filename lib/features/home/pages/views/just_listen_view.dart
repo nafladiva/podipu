@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/player.dart';
+import 'package:podipu/shared/utils/image_util.dart';
 
 import '../../cubit/home_cubit.dart';
 
@@ -47,11 +47,8 @@ class JustListenView extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: CachedNetworkImage(
-                        imageUrl: state.randomEpisode!.imageUrl,
-                        placeholder: (_, __) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (_, __, ___) => const Icon(Icons.error),
+                      child: ImageUtil.buildCachedNetworkImage(
+                        url: state.randomEpisode!.imageUrl,
                         width: 110.0,
                       ),
                     ),

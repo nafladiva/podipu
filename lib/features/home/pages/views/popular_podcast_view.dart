@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 
 import '../../cubit/home_cubit.dart';
+import '../widgets/card_list_loader.dart';
 import '../widgets/podcast_card.dart';
 
 class PopularPodcastView extends StatelessWidget {
@@ -12,10 +13,6 @@ class PopularPodcastView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        if (state.bestPodcastLoadStatus.isLoading) {
-          return const CircularProgressIndicator();
-        }
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,13 +27,15 @@ class PopularPodcastView extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  ...state.bestPodcastList.map(
-                    (podcast) => PodcastCard(podcast: podcast),
-                  ),
-                ],
-              ),
+              child: (state.bestPodcastLoadStatus.isLoading)
+                  ? const CardListLoader()
+                  : Row(
+                      children: [
+                        ...state.bestPodcastList.map(
+                          (podcast) => PodcastCard(podcast: podcast),
+                        ),
+                      ],
+                    ),
             ),
           ],
         );
