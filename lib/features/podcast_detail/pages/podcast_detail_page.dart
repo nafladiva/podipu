@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/podcast_detail/repositories/podcast_detail_repository.dart';
+import 'package:podipu/features/saved/repositories/saved_repository.dart';
 import 'package:podipu/shared/extensions/string_ext.dart';
 import 'package:podipu/shared/utils/html_util.dart';
 import 'package:podipu/shared/widgets/my_app_bar.dart';
@@ -31,7 +32,10 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
   @override
   void initState() {
     super.initState();
-    cubit = PodcastDetailCubit(repository: PodcastDetailRepositoryImpl());
+    cubit = PodcastDetailCubit(
+      repository: PodcastDetailRepositoryImpl(),
+      savedRepository: SavedRepositoryImpl(),
+    );
     cubit.onBuild(id: widget.id);
   }
 
@@ -138,9 +142,9 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
                       ),
                       const SizedBox(height: 12.0),
                       EpisodeItem(
-                        // TODO: need to remove null check
-                        episode: state.podcast?.episodes!.first
+                        episode: state.latestEpisode
                             .copyWith(podcast: state.podcast),
+                        isSaved: state.isEpisodeSaved(state.latestEpisode.id),
                       ),
                       const SizedBox(height: 12.0),
                       Text(
@@ -151,6 +155,7 @@ class _PodcastDetailPageState extends State<PodcastDetailPage> {
                       ...state.podcast!.episodes!.skip(1).map(
                             (episode) => EpisodeItem(
                               episode: episode.copyWith(podcast: state.podcast),
+                              isSaved: state.isEpisodeSaved(episode.id),
                             ),
                           ),
                       const SizedBox(height: 65.0),

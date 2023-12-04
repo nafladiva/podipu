@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/features/podcast_detail/cubit/podcast_detail_cubit.dart';
+import 'package:podipu/features/saved/cubit/saved_cubit.dart';
 import 'package:podipu/shared/data/models/episode_mdl.dart';
 import 'package:podipu/features/player/player.dart';
 import 'package:podipu/shared/utils/date_time_util.dart';
@@ -13,9 +16,11 @@ class EpisodeItem extends StatelessWidget {
   const EpisodeItem({
     super.key,
     required this.episode,
+    required this.isSaved,
   });
 
   final EpisodeMdl? episode;
+  final bool isSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -77,41 +82,65 @@ class EpisodeItem extends StatelessWidget {
           const Divider(),
           const SizedBox(height: 6),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                DurationUtil.formatSeconds(episode!.audioLengthSec),
-                style: TStyles.p1(),
+              GestureDetector(
+                onTap: () {
+                  final savedCubit = context.read<SavedCubit>();
+                  final detailCubit = context.read<PodcastDetailCubit>();
+
+                  if (isSaved) {
+                    savedCubit.removeFromSaved(episode: episode!);
+                    detailCubit.removeEpisodeFromSaved(episode!.id);
+                  } else {
+                    savedCubit.saveEpisode(episode: episode!);
+                    detailCubit.addEpisodeToSaved(episode!.id);
+                  }
+                },
+                child: Icon(
+                  isSaved ? Icons.bookmark : Icons.bookmark_outline,
+                  size: 28,
+                  color: MyColor.primaryPink,
+                ),
               ),
-              const SizedBox(width: 6.0),
-              InkWell(
-                onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
-                  context,
-                  screen: MaterialPageRoute(
-                    builder: (_) => PlayerPage(episode: episode!),
-                    fullscreenDialog: true,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    DurationUtil.formatSeconds(episode!.audioLengthSec),
+                    style: TStyles.p1(),
                   ),
-                  withNavBar: false,
-                ),
-                child: Container(
-                  padding: const EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: MyColor.dark,
-                    boxShadow: [
-                      BoxShadow(
-                        color: MyColor.shadow.withOpacity(0.2),
-                        offset: const Offset(2.0, 2.0),
+                  const SizedBox(width: 6.0),
+                  InkWell(
+                    onTap: () => PersistentNavBarNavigator.pushDynamicScreen(
+                      context,
+                      screen: MaterialPageRoute(
+                        builder: (_) => PlayerPage(episode: episode!),
+                        fullscreenDialog: true,
                       ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.play_arrow,
-                    size: 28,
-                    color: MyColor.primaryPink,
-                  ),
-                ),
-              )
+                      withNavBar: false,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: MyColor.dark,
+                        boxShadow: [
+                          BoxShadow(
+                            color: MyColor.shadow.withOpacity(0.2),
+                            offset: const Offset(2.0, 2.0),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.play_arrow,
+                        size: 28,
+                        color: MyColor.primaryPink,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ],
           )
         ],
