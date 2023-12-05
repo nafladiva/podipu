@@ -8,6 +8,7 @@ import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
 
 import '../cubit/home_cubit.dart';
 import 'views/just_listen_view.dart';
+import 'views/podcast_recommendation_view.dart';
 import 'views/views.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,6 +79,8 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 40),
                       const RecentlyPlayedView(),
                       const JustListenView(),
+                      const SizedBox(height: 40),
+                      const PodcastRecommendationView(),
                       const SizedBox(height: 60),
                     ],
                   ),

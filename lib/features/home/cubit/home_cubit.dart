@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,14 +26,9 @@ class HomeCubit extends Cubit<HomeState> {
         );
 
   Future<void> onBuild() async {
-    // getBestPodcast(), emit to state
     await getBestPodcast();
     await getRandomEpisode();
-
-    // pick one random podcast (from bestPodcastList), then it will be id for getPodcastRecommendation
-    // selected podcast will be emit to selectedPodcast state
-
-    // getPodcastRecommendation()
+    await getPodcastRecommendation();
   }
 
   Future<void> getBestPodcast() async {
@@ -52,6 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
         podcastList =
             List<PodcastMdl>.from(decoded.map((x) => PodcastMdl.fromMap(x)));
       } else {
+        // make an API request
         podcastList = await repository.getBestPodcasts();
       }
 
@@ -65,8 +62,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(bestPodcastLoadStatus: const ViewState.failed()));
     }
   }
-
-  Future<void> getPodcastRecommendation() async {}
 
   Future<void> getRandomEpisode() async {
     emit(state.copyWith(randomEpisodeLoadStatus: const ViewState.loading()));
@@ -84,6 +79,7 @@ class HomeCubit extends Cubit<HomeState> {
         final decoded = json.decode(cache);
         episode = EpisodeMdl.fromMap(decoded);
       } else {
+        // make an API request
         episode = await repository.getRandomPodcastEpisode();
       }
 
@@ -95,6 +91,71 @@ class HomeCubit extends Cubit<HomeState> {
       );
     } catch (e) {
       emit(state.copyWith(randomEpisodeLoadStatus: const ViewState.failed()));
+    }
+  }
+
+  Future<void> getPodcastRecommendation() async {
+    emit(state.copyWith(
+      podcastRecommendationLoadStatus: const ViewState.loading(),
+    ));
+
+    try {
+      List<PodcastMdl>? podcastList;
+
+      // check cache
+      final recommendationListCache = await HiveLocalStorage.get(
+        boxName: HiveKey.cacheBoxKey,
+        key: HiveKey.podcastRecommendationCacheKey,
+      );
+      final selectedPodcastCache = await HiveLocalStorage.get(
+        boxName: HiveKey.cacheBoxKey,
+        key: HiveKey.selectedPodcastRecomCacheKey,
+      );
+
+      if (recommendationListCache != null && selectedPodcastCache != null) {
+        // podcast recommendation list
+        final decoded = json.decode(recommendationListCache);
+        podcastList = List<PodcastMdl>.from(
+          decoded.map((x) => PodcastMdl.fromMap(x)),
+        );
+
+        // selected podcast for recommendation
+        final selectedPodcastDecoded = json.decode(selectedPodcastCache);
+        final selectedPodcast = PodcastMdl.fromMap(selectedPodcastDecoded);
+        emit(state.copyWith(
+          selectedPodcastForRecommendation: selectedPodcast,
+        ));
+      } else {
+        // make an API request, based by one podcast from best podcast list
+        final randomIndex = Random().nextInt(state.bestPodcastList.length);
+        final recommendationPodcast = state.bestPodcastList[randomIndex];
+
+        podcastList = await repository.getPodcastRecommendations(
+          recommendationPodcast.id,
+        );
+
+        // caching
+        await HiveLocalStorage.set(
+          boxName: HiveKey.cacheBoxKey,
+          key: HiveKey.selectedPodcastRecomCacheKey,
+          value: json.encode(recommendationPodcast.toMap()),
+        );
+
+        emit(state.copyWith(
+          selectedPodcastForRecommendation: recommendationPodcast,
+        ));
+      }
+
+      emit(
+        state.copyWith(
+          podcastRecommendationList: podcastList,
+          podcastRecommendationLoadStatus: const ViewState.success(),
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        podcastRecommendationLoadStatus: const ViewState.failed(),
+      ));
     }
   }
 }

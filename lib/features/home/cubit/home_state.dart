@@ -9,7 +9,7 @@ class HomeState extends Equatable {
   final List<PodcastMdl> podcastRecommendationList;
   final List<EpisodeMdl> episodeRecommendationList;
   final EpisodeMdl? randomEpisode;
-  final PodcastMdl? selectedPodcast;
+  final PodcastMdl? selectedPodcastForRecommendation;
 
   const HomeState({
     required this.bestPodcastLoadStatus,
@@ -20,7 +20,7 @@ class HomeState extends Equatable {
     this.podcastRecommendationList = const [],
     this.episodeRecommendationList = const [],
     this.randomEpisode,
-    this.selectedPodcast,
+    this.selectedPodcastForRecommendation,
   });
 
   HomeState copyWith({
@@ -32,7 +32,7 @@ class HomeState extends Equatable {
     List<PodcastMdl>? podcastRecommendationList,
     List<EpisodeMdl>? episodeRecommendationList,
     EpisodeMdl? randomEpisode,
-    PodcastMdl? selectedPodcast,
+    PodcastMdl? selectedPodcastForRecommendation,
   }) {
     return HomeState(
       bestPodcastLoadStatus:
@@ -49,7 +49,8 @@ class HomeState extends Equatable {
       episodeRecommendationList:
           episodeRecommendationList ?? this.episodeRecommendationList,
       randomEpisode: randomEpisode ?? this.randomEpisode,
-      selectedPodcast: selectedPodcast ?? this.selectedPodcast,
+      selectedPodcastForRecommendation: selectedPodcastForRecommendation ??
+          this.selectedPodcastForRecommendation,
     );
   }
 
@@ -63,6 +64,6 @@ class HomeState extends Equatable {
         podcastRecommendationList,
         episodeRecommendationList,
         randomEpisode,
-        selectedPodcast,
+        selectedPodcastForRecommendation,
       ];
 }
