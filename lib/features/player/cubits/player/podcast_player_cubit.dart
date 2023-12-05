@@ -21,8 +21,6 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
     VoidCallback? callback,
     Function(EpisodeMdl?, Duration)? onStopPreviousAudio,
   }) async {
-    // TODO: use loadStatus to UI
-
     if (state.episode?.id != episode.id) {
       emit(state.copyWith(loadStatus: const ViewState.loading()));
 

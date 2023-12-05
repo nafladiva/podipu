@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
+import 'package:podipu/features/podcast_detail/podcast_detail.dart';
 import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
 import 'package:podipu/features/saved/cubit/saved_cubit.dart';
 import 'package:podipu/injection.dart';
@@ -140,23 +142,31 @@ class _PlayerPageState extends State<PlayerPage> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      Text(
-                        widget.episode.title,
-                        textAlign: TextAlign.center,
-                        style: TStyles.sh1(),
+                      GestureDetector(
+                        onTap: () {
+                          if (widget.episode.podcast != null) {
+                            // close player page
+                            Navigator.pop(context);
+
+                            // go to podcast detail
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: PodcastDetailPage(
+                                id: widget.episode.podcast!.id,
+                              ),
+                            );
+                          }
+                        },
+                        child: Text(
+                          widget.episode.title,
+                          textAlign: TextAlign.center,
+                          style: TStyles.sh1(),
+                        ),
                       ),
                       const SizedBox(height: 10),
                       ControlButtons(
                         player: _player,
                       ),
-                      // SeekBar(
-                      //   semanticsValue: '',
-                      //   progresseight: 10,
-                      //   indicatorRadius: 0.0,
-                      //   value: 14.0,
-                      //   progressColor: state.backgroundColor.withOpacity(0.5),
-                      //   backgroundColor: MyColor.text.withOpacity(0.7),
-                      // ),
                       StreamBuilder<PositionData>(
                         stream: _positionDataStream,
                         builder: (context, snapshot) {

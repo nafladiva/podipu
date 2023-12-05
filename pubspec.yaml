@@ -29,9 +29,6 @@ dependencies:
   intl: ^0.18.1
   flutter_html: ^3.0.0-beta.2
 
-# dependency_overrides: 
-#   flutter_svg: ^1.0.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
