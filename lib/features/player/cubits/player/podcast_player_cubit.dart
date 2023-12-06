@@ -28,26 +28,23 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
         stopAudio(player, onStopAudio: onStopPreviousAudio);
       }
 
+      emit(state.copyWith(episode: episode));
+
       final session = await AudioSession.instance;
       await session.configure(const AudioSessionConfiguration.speech());
 
-      // Listen to errors during playback.
+      // listen to errors during playback
       player.playbackEventStream.listen(
         (event) {},
-        onError: (e, stackTrace) {
-          print('A stream error occurred: $e');
-        },
+        onError: (e, stackTrace) {},
       );
 
-      // Try to load audio from a source and catch any errors.
+      // load audio from its url
       try {
-        // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
-
         await player.setAudioSource(
           AudioSource.uri(Uri.parse(episode.audioUrl)),
           initialPosition: latestPosition,
         );
-        emit(state.copyWith(episode: episode));
 
         playAudio(player);
 
@@ -55,7 +52,6 @@ class PodcastPlayerCubit extends Cubit<PodcastPlayerState> {
 
         emit(state.copyWith(loadStatus: const ViewState.success()));
       } catch (e) {
-        print('Error loading audio source: $e');
         emit(state.copyWith(loadStatus: const ViewState.failed()));
       }
     }

@@ -11,7 +11,6 @@ class PodcastDetailState extends Equatable {
     this.savedEpisodeIdList = const [],
   });
 
-  // TODO: need to remove null check
   EpisodeMdl get latestEpisode => podcast!.episodes!.first;
   bool isEpisodeSaved(String id) => savedEpisodeIdList.contains(id);
 
