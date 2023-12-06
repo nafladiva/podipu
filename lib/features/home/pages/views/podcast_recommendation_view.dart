@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:podipu/common/themes/colors.dart';
 import 'package:podipu/common/themes/text_styles.dart';
 
 import '../../cubit/home_cubit.dart';
@@ -28,9 +29,22 @@ class PodcastRecommendationView extends StatelessWidget {
                     style: TStyles.sh2(),
                   ),
                   const SizedBox(height: 2),
-                  Text(
-                    'some recommendation based on ${selectedPodcast?.title} podcast',
-                    style: TStyles.p2(),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Some recommendation based on ',
+                      style: TStyles.p2(),
+                      children: [
+                        TextSpan(
+                          text: selectedPodcast?.title,
+                          style: TStyles.p2(color: MyColor.primaryPink)
+                              .copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        TextSpan(
+                          text: ' podcast',
+                          style: TStyles.p2(),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
