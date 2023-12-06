@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:podipu/common/themes/colors.dart';
+import 'package:podipu/common/themes/text_styles.dart';
 
 class SavedCardOptions extends StatelessWidget {
   const SavedCardOptions({
@@ -31,21 +32,27 @@ class SavedCardOptions extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                InkWell(
-                  onTap: onDelete,
-                  child: const Icon(
-                    Icons.delete_outline,
-                    size: 32,
-                    color: Colors.red,
+                ElevatedButton(
+                  onPressed: onDelete,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0.5,
+                    backgroundColor: Colors.red,
+                  ),
+                  child: Text(
+                    'Delete',
+                    style: TStyles.sh2(),
                   ),
                 ),
-                const SizedBox(width: 30),
-                InkWell(
-                  onTap: onCancel,
-                  child: const Icon(
-                    Icons.close,
-                    size: 32,
-                    color: MyColor.text,
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: onCancel,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0.5,
+                    backgroundColor: Colors.grey,
+                  ),
+                  child: Text(
+                    'Cancel',
+                    style: TStyles.sh2(),
                   ),
                 ),
               ],
