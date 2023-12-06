@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                       const JustListenView(),
                       const SizedBox(height: 40),
                       const PodcastRecommendationView(),
-                      const SizedBox(height: 60),
+                      const SizedBox(height: 80),
                     ],
                   ),
                 ),
