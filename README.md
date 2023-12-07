@@ -1,3 +1,3 @@
 # podipu
 
-A simple podcast app
+A Podcast Mobile App
