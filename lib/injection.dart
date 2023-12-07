@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 
+import 'features/genre/cubit/genre_cubit.dart';
+import 'features/genre/repositories/genre_repository.dart';
 import 'features/main_page/cubit/main_cubit.dart';
 import 'features/player/cubits/player/podcast_player_cubit.dart';
 import 'features/recent_played/cubit/recent_played_cubit.dart';
@@ -27,6 +29,11 @@ void init() {
       repository: locator(),
     ),
   );
+  locator.registerFactory(
+    () => GenreCubit(
+      repository: locator(),
+    ),
+  );
 
   locator.registerSingleton(AudioPlayer());
 
@@ -35,5 +42,8 @@ void init() {
   );
   locator.registerLazySingleton<SavedRepository>(
     () => SavedRepositoryImpl(),
+  );
+  locator.registerLazySingleton<GenreRepository>(
+    () => GenreRepositoryImpl(),
   );
 }

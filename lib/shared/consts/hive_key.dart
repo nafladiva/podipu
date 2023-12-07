@@ -9,4 +9,5 @@ class HiveKey {
   static const episodeRecommendationCacheKey = 'episodeRecommendationCacheKey';
   static const randomEpisodeCacheKey = 'randomEpisodeCacheKey';
   static const podcastDetailCacheKey = 'podcastDetailCacheKey';
+  static const genresCacheKey = 'genresCacheKey';
 }

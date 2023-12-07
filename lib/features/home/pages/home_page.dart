@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podipu/common/consts/size_const.dart';
 import 'package:podipu/common/themes/text_styles.dart';
+import 'package:podipu/features/genre/cubit/genre_cubit.dart';
+import 'package:podipu/features/genre/pages/view/genre_list_view.dart';
 import 'package:podipu/features/home/repositories/home_repository.dart';
 import 'package:podipu/features/player/cubits/player/podcast_player_cubit.dart';
 import 'package:podipu/features/recent_played/cubit/recent_played_cubit.dart';
@@ -37,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final recentPlayedCubit = context.read<RecentPlayedCubit>();
+    final genreCubit = context.read<GenreCubit>();
 
     return BlocProvider.value(
       value: homeCubit,
@@ -48,6 +51,7 @@ class _HomePageState extends State<HomePage> {
                 onRefresh: () async {
                   await homeCubit.onBuild();
                   await recentPlayedCubit.getRecentPlayed();
+                  await genreCubit.onBuild();
                 },
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(
@@ -79,6 +83,8 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 40),
                       const RecentlyPlayedView(),
                       const JustListenView(),
+                      const SizedBox(height: 40),
+                      const GenreListView(),
                       const SizedBox(height: 40),
                       const PodcastRecommendationView(),
                       const SizedBox(height: 80),

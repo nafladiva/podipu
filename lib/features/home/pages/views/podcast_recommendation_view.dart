@@ -25,7 +25,7 @@ class PodcastRecommendationView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Recommendation Podcasts',
+                    '🌟 Recommendation Podcasts',
                     style: TStyles.sh2(),
                   ),
                   const SizedBox(height: 2),
