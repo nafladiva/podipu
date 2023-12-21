@@ -68,7 +68,7 @@ class GenreCubit extends Cubit<GenreState> {
       );
 
       if (cache != null) {
-        final decoded = json.decode(cache);
+        final decoded = json.decode(cache)['podcasts'];
         podcastList = List<PodcastMdl>.from(decoded.map(
           (x) => PodcastMdl.fromMap(x),
         ));
