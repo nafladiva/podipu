@@ -41,10 +41,13 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<GenreCubit>()..onBuild(),
         ),
       ],
-      child: MaterialApp(
-        title: 'podipu',
-        theme: Themes.init,
-        home: const SplashPage(),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: MaterialApp(
+          title: 'podipu',
+          theme: Themes.init,
+          home: const SplashPage(),
+        ),
       ),
     );
   }

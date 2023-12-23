@@ -23,6 +23,7 @@ class GenreChip extends StatelessWidget {
         );
       },
       child: Container(
+        margin: const EdgeInsets.only(right: 7),
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,

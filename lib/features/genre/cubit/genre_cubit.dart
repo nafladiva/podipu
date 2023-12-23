@@ -42,7 +42,7 @@ class GenreCubit extends Cubit<GenreState> {
         genreList = await repository.getPodcastGenres();
       }
 
-      final randomGenres = (genreList..shuffle()).take(10).toList();
+      final randomGenres = (genreList..shuffle()).take(5).toList();
 
       emit(
         state.copyWith(
@@ -86,5 +86,9 @@ class GenreCubit extends Cubit<GenreState> {
     } catch (e) {
       emit(state.copyWith(podcastByGenreLoadStatus: const ViewState.failed()));
     }
+  }
+
+  Future<List<GenreMdl>> search(String query) async {
+    return await repository.searchGenre(query);
   }
 }

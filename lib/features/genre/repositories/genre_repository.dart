@@ -10,6 +10,7 @@ import 'package:podipu/shared/utils/http_util.dart';
 abstract class GenreRepository {
   Future<List<GenreMdl>> getPodcastGenres();
   Future<List<PodcastMdl>> getPodcastsByGenre(GenreMdl genre);
+  Future<List<GenreMdl>> searchGenre(String query);
 }
 
 class GenreRepositoryImpl implements GenreRepository {
@@ -52,6 +53,30 @@ class GenreRepositoryImpl implements GenreRepository {
       );
 
       return List<PodcastMdl>.from(decoded.map((x) => PodcastMdl.fromMap(x)));
+    } catch (_) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<List<GenreMdl>> searchGenre(String query) async {
+    try {
+      final cachedGenres = await HiveLocalStorage.get(
+        boxName: HiveKey.cacheBoxKey,
+        key: HiveKey.genresCacheKey,
+      );
+      final decoded = json.decode(cachedGenres);
+      final genreList = List<GenreMdl>.from(decoded.map(
+        (x) => GenreMdl.fromMap(x),
+      ));
+
+      final result = genreList
+          .where(
+            (genre) => genre.name.toLowerCase().contains(query.toLowerCase()),
+          )
+          .toList();
+
+      return result;
     } catch (_) {
       throw Exception();
     }
