@@ -8,7 +8,13 @@ A Podcast Mobile App, where you can listen to a variety of the best podcasts, ex
 - Hive
 
 ### Important
-If you want to run the app, please generate your own ListenNotes's API Key in https://www.listennotes.com/api/ , and place the key in ``` lib/common/secrets/my_secret.dart ```
+If you want to run the app, please generate your own ListenNotes's API Key in https://www.listennotes.com/api/ , and place the key in a file at ``` lib/common/secrets/my_secret.dart ```
+
+```
+class MySecret {
+  static const listenNotesApiKey = '<Your API Key>';
+}
+```
 
 ## Screenshots
 <img width="360" alt="Screen Shot 2023-12-08 at 13 58 15" src="https://github.com/nafladiva/podipu/assets/57741610/df287044-21bf-4e8f-b6c9-78d8329e333a">
