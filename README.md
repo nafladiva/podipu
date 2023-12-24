@@ -10,7 +10,7 @@ A Podcast Mobile App, where you can listen to a variety of the best podcasts, ex
 ### Important
 If you want to run the app, please generate your own ListenNotes's API Key in https://www.listennotes.com/api/ , and place the key in a file at ``` lib/common/secrets/my_secret.dart ```
 
-```
+```dart
 class MySecret {
   static const listenNotesApiKey = '<Your API Key>';
 }
